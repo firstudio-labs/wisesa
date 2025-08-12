@@ -80,6 +80,15 @@ class LinkController extends Controller
                 "timestamp" => now()->toIso8601String()
             ];
             
+            // Tambahkan background custom default jika belum ada
+            if (!isset($layoutData['background_custom'])) {
+                $layoutData['background_custom'] = [
+                    'type' => 'image',
+                    'image' => 'https://images.pexels.com/photos/1037992/pexels-photo-1037992.jpeg?cs=srgb&dl=pexels-moose-photos-170195-1037992.jpg&fm=jpg',
+                    'updated_at' => now()->toIso8601String()
+                ];
+            }
+            
             Link::create([
                 'user_id' => auth()->user()->id,
                 'data_link' => $layoutData,
@@ -429,6 +438,85 @@ class LinkController extends Controller
     }
 
     /**
+     * Update background custom
+     */
+    public function updateBackgroundCustom(Request $request)
+    {
+        try {
+            // Debug: log the incoming request
+            Log::info('Background custom update request:', [
+                'request_data' => $request->all(),
+                'user_id' => auth()->user()->id,
+                'files' => $request->allFiles()
+            ]);
+
+            $request->validate([
+                'background_type' => 'required|in:image,color,gradient',
+                'background_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5120',
+                'background_color' => 'nullable|string|max:7',
+                'background_color_secondary' => 'nullable|string|max:7',
+                'gradient_color_1' => 'nullable|string|max:7',
+                'gradient_color_2' => 'nullable|string|max:7',
+                'gradient_direction' => 'nullable|string|max:20',
+            ]);
+
+            $existingLink = $this->getOrCreateUserLink();
+            $currentData = $existingLink->data_link;
+            
+            Log::info('Current data_link:', ['current_data' => $currentData]);
+            
+            $backgroundData = [
+                'type' => $request->background_type,
+                'updated_at' => now()->toIso8601String()
+            ];
+
+            if ($request->background_type === 'image') {
+                $imagePath = $this->handleImageUpload($request, 'background_image', 'backgrounds');
+                $backgroundData['image'] = $imagePath ?: 'https://images.pexels.com/photos/1037992/pexels-photo-1037992.jpeg?cs=srgb&dl=pexels-moose-photos-170195-1037992.jpg&fm=jpg';
+                Log::info('Image upload result:', ['image_path' => $imagePath, 'final_image' => $backgroundData['image']]);
+            } elseif ($request->background_type === 'color') {
+                $backgroundData['color'] = $request->background_color;
+                $backgroundData['color_secondary'] = $request->background_color_secondary;
+                Log::info('Color data:', ['color' => $backgroundData['color'], 'color_secondary' => $backgroundData['color_secondary']]);
+            } elseif ($request->background_type === 'gradient') {
+                $backgroundData['gradient'] = [
+                    'color1' => $request->gradient_color_1,
+                    'color2' => $request->gradient_color_2,
+                    'direction' => $request->gradient_direction
+                ];
+                Log::info('Gradient data:', ['gradient' => $backgroundData['gradient']]);
+            }
+
+            $currentData['background_custom'] = $backgroundData;
+            Log::info('Updated background data:', ['background_custom' => $currentData['background_custom']]);
+            
+            $this->updateUserLink($existingLink, $currentData);
+
+            Log::info('Background custom updated successfully:', [
+                'user_id' => auth()->user()->id,
+                'data' => $currentData['background_custom']
+            ]);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Background custom berhasil diupdate!',
+                'data' => $currentData['background_custom']
+            ]);
+
+        } catch (\Exception $e) {
+            Log::error('Error updating background custom', [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString(),
+                'user_id' => auth()->user()->id
+            ]);
+            return response()->json([
+                'success' => false,
+                'message' => 'Terjadi kesalahan: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
      * Helper method untuk mendapatkan atau membuat user link
      */
     private function getOrCreateUserLink()
@@ -447,7 +535,8 @@ class LinkController extends Controller
                         "sosial_media",
                         "portfolio_project",
                         "gambar_thumbnail",
-                        "spotify_embed"
+                        "spotify_embed",
+                        "background_custom"
                     ],
                     "timestamp" => now()->toIso8601String()
                 ]

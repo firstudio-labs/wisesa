@@ -924,18 +924,90 @@
                 padding: 16px;
             }
             
-            /* Ensure modals are on top */
-            #addElementModal,
-            #editProfileModal,
-            #editGridProdukModal,
-            #editTombolLinkModal,
-            #editYoutubeEmbedModal,
-            #editSosialMediaModal,
-            #editPortfolioProjectModal,
-            #editGambarThumbnailModal,
-            #editSpotifyEmbedModal {
-                z-index: 100000 !important;
-            }
+                    /* Ensure modals are on top */
+        #addElementModal,
+        #editProfileModal,
+        #editGridProdukModal,
+        #editTombolLinkModal,
+        #editYoutubeEmbedModal,
+        #editSosialMediaModal,
+        #editPortfolioProjectModal,
+        #editGambarThumbnailModal,
+        #editSpotifyEmbedModal,
+        #editBackgroundCustomModal {
+            z-index: 100000 !important;
+        }
+        
+        /* Background Custom Modal Styles */
+        #editBackgroundCustomModal input[type="radio"]:checked + div {
+            border-color: #3b82f6 !important;
+            background: linear-gradient(135deg, #eff6ff, #dbeafe) !important;
+            transform: scale(1.02);
+        }
+        
+        #editBackgroundCustomModal input[type="radio"]:checked + div::after {
+            content: '✓';
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 20px;
+            height: 20px;
+            background: #3b82f6;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        #editBackgroundCustomModal .color-input {
+            transition: all 0.2s ease;
+        }
+        
+        #editBackgroundCustomModal .color-input:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        #editBackgroundCustomModal .preset-button {
+            transition: all 0.2s ease;
+        }
+        
+        #editBackgroundCustomModal .preset-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+        
+        /* Smooth transitions for modal sections */
+        #backgroundImageSection,
+        #backgroundColorSection,
+        #backgroundGradientSection {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        /* Color input improvements */
+        #editBackgroundCustomModal input[type="color"] {
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.2s ease;
+        }
+        
+        #editBackgroundCustomModal input[type="color"]:hover {
+            border-color: #3b82f6;
+            transform: scale(1.05);
+        }
+        
+        /* Text input improvements */
+        #editBackgroundCustomModal input[type="text"] {
+            transition: all 0.2s ease;
+        }
+        
+        #editBackgroundCustomModal input[type="text"]:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
             
             #addElementModal .bg-white {
                 border-radius: 12px;
@@ -1477,6 +1549,263 @@
         </div>
     </div>
 
+    <!-- Edit Background Custom Modal -->
+    <div id="editBackgroundCustomModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-[100000] flex items-center justify-center p-4">
+        <div class="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] flex flex-col">
+            <div class="p-6 border-b border-gray-200 bg-gradient-to-r from-blue-50 to-indigo-50">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-800">🎨 Edit Background Custom</h3>
+                        <p class="text-sm text-gray-600 mt-1">Pilih dan sesuaikan background halaman Anda</p>
+                    </div>
+                    <button onclick="hideEditBackgroundCustomModal()" class="text-gray-400 hover:text-gray-600 transition-colors">
+                        <i class="fas fa-times text-xl"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="flex-1 overflow-y-auto p-6">
+                <form id="backgroundCustomForm" enctype="multipart/form-data">
+                    @csrf
+                    
+                    <!-- Hidden inputs untuk memastikan data terkirim -->
+                    <input type="hidden" name="background_type" id="hiddenBackgroundType" value="image">
+                    
+                    <!-- Tipe Background -->
+                    <div class="mb-8 p-6 bg-gray-50 rounded-xl border border-gray-200">
+                        <label class="block text-lg font-semibold text-gray-800 mb-4">📋 Tipe Background</label>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <label class="relative cursor-pointer">
+                                <input type="radio" name="background_type" value="image" class="sr-only" checked onchange="toggleBackgroundOptions()">
+                                <div class="p-4 border-2 border-gray-200 rounded-lg text-center hover:border-blue-300 transition-all duration-200 bg-white">
+                                    <i class="fas fa-image text-2xl text-blue-500 mb-2"></i>
+                                    <div class="font-medium text-gray-700">Gambar</div>
+                                    <div class="text-xs text-gray-500">Upload foto custom</div>
+                                </div>
+                            </label>
+                            
+                            <label class="relative cursor-pointer">
+                                <input type="radio" name="background_type" value="color" class="sr-only" onchange="toggleBackgroundOptions()">
+                                <div class="p-4 border-2 border-gray-200 rounded-lg text-center hover:border-blue-300 transition-all duration-200 bg-white">
+                                    <i class="fas fa-palette text-2xl text-green-500 mb-2"></i>
+                                    <div class="font-medium text-gray-700">Warna Solid</div>
+                                    <div class="text-xs text-gray-500">Pilih warna solid</div>
+                                </div>
+                            </label>
+                            
+                            <label class="relative cursor-pointer">
+                                <input type="radio" name="background_type" value="gradient" class="sr-only" onchange="toggleBackgroundOptions()">
+                                <div class="p-4 border-2 border-gray-200 rounded-lg text-center hover:border-blue-300 transition-all duration-200 bg-white">
+                                    <i class="fas fa-palette text-2xl text-purple-500 mb-2"></i>
+                                    <div class="font-medium text-gray-700">Gradient</div>
+                                    <div class="text-xs text-gray-500">Kombinasi 2 warna</div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Background Image Section -->
+                    <div id="backgroundImageSection" class="mb-8 p-6 bg-blue-50 rounded-xl border border-blue-200">
+                        <label class="block text-lg font-semibold text-blue-800 mb-4">🖼️ Upload Gambar Background</label>
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                            <div class="text-center">
+                                <div class="relative inline-block">
+                                    <img id="backgroundPreview" src="https://images.pexels.com/photos/1037992/pexels-photo-1037992.jpeg?cs=srgb&dl=pexels-moose-photos-170195-1037992.jpg&fm=jpg" 
+                                         alt="Preview Background" 
+                                         class="w-48 h-36 object-cover border-4 border-white rounded-xl shadow-lg">
+                                    <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 rounded-xl opacity-0 hover:opacity-100 transition-opacity duration-200">
+                                        <i class="fas fa-image text-white text-2xl"></i>
+                                    </div>
+                                </div>
+                                <p class="text-sm text-gray-600 mt-2">Preview Background</p>
+                            </div>
+                            
+                            <div class="space-y-4">
+                                <div>
+                                    <input type="file" id="backgroundImage" name="background_image" 
+                                           accept="image/*" class="hidden" onchange="previewBackgroundImage(this)">
+                                    <button type="button" onclick="document.getElementById('backgroundImage').click()" 
+                                            class="w-full px-6 py-4 bg-blue-500 text-white rounded-xl hover:bg-blue-600 transition-all duration-200 font-medium text-lg shadow-lg hover:shadow-xl">
+                                        <i class="fas fa-cloud-upload-alt mr-3 text-xl"></i>Pilih Gambar
+                                    </button>
+                                </div>
+                                
+                                <div class="p-4 bg-white rounded-lg border border-gray-200">
+                                    <h4 class="font-medium text-gray-800 mb-2">📋 Informasi File:</h4>
+                                    <ul class="text-sm text-gray-600 space-y-1">
+                                        <li>✅ Format: JPG, PNG, GIF</li>
+                                        <li>✅ Ukuran maksimal: 5MB</li>
+                                        <li>✅ Resolusi: Minimal 800x600px</li>
+                                        <li>✅ Background akan otomatis di-crop</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Background Color Section -->
+                    <div id="backgroundColorSection" class="mb-8 p-6 bg-green-50 rounded-xl border border-green-200 hidden">
+                        <label class="block text-lg font-semibold text-green-800 mb-4">🎨 Pilih Warna Background</label>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">🎯 Warna Utama</label>
+                                    <div class="flex items-center space-x-3">
+                                        <input type="color" id="backgroundColor" name="background_color" value="#ffffff" 
+                                               class="w-16 h-16 border-2 border-gray-300 rounded-lg cursor-pointer hover:border-blue-400 transition-colors">
+                                        <div class="flex-1">
+                                            <input type="text" value="#ffffff" class="w-full px-3 py-2 border border-gray-300 rounded-lg font-mono text-sm" 
+                                                   onchange="document.getElementById('backgroundColor').value = this.value" 
+                                                   placeholder="#ffffff">
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">🔄 Warna Sekunder (Opsional)</label>
+                                    <div class="flex items-center space-x-3">
+                                        <input type="color" id="backgroundColorSecondary" name="background_color_secondary" value="#f3f4f6" 
+                                               class="w-16 h-16 border-2 border-gray-300 rounded-lg cursor-pointer hover:border-blue-400 transition-colors">
+                                        <div class="flex-1">
+                                            <input type="text" value="#f3f4f6" class="w-full px-3 py-2 border border-gray-300 rounded-lg font-mono text-sm" 
+                                                   onchange="document.getElementById('backgroundColorSecondary').value = this.value" 
+                                                   placeholder="#f3f4f6">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="p-6 bg-white rounded-lg border border-gray-200">
+                                <h4 class="font-medium text-gray-800 mb-3">💡 Tips Warna:</h4>
+                                <ul class="text-sm text-gray-600 space-y-2">
+                                    <li>• Pilih warna yang kontras dengan teks</li>
+                                    <li>• Gunakan warna sekunder untuk gradient halus</li>
+                                    <li>• Warna putih (#ffffff) untuk tampilan bersih</li>
+                                    <li>• Warna gelap untuk tampilan elegan</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Background Gradient Section -->
+                    <div id="backgroundGradientSection" class="mb-8 p-6 bg-purple-50 rounded-xl border border-purple-200 hidden">
+                        <label class="block text-lg font-semibold text-purple-800 mb-4">🌈 Pilih Gradient Background</label>
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                            <div class="space-y-4">
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">🎨 Warna Awal</label>
+                                        <div class="flex items-center space-x-3">
+                                            <input type="color" id="gradientColor1" name="gradient_color_1" value="#667eea" 
+                                                   class="w-16 h-16 border-2 border-gray-300 rounded-lg cursor-pointer hover:border-blue-400 transition-colors">
+                                            <div class="flex-1">
+                                                <input type="text" value="#667eea" class="w-full px-3 py-2 border border-gray-300 rounded-lg font-mono text-sm" 
+                                                       onchange="document.getElementById('gradientColor1').value = this.value" 
+                                                       placeholder="#667eea">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">🎨 Warna Akhir</label>
+                                        <div class="flex items-center space-x-3">
+                                            <input type="color" id="gradientColor2" name="gradient_color_2" value="#764ba2" 
+                                                   class="w-16 h-16 border-2 border-gray-300 rounded-lg cursor-pointer hover:border-blue-400 transition-colors">
+                                            <div class="flex-1">
+                                                <input type="text" value="#764ba2" class="w-full px-3 py-2 border border-gray-300 rounded-lg font-mono text-sm" 
+                                                       onchange="document.getElementById('gradientColor2').value = this.value" 
+                                                       placeholder="#764ba2">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">🧭 Arah Gradient</label>
+                                    <select id="gradientDirection" name="gradient_direction" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+                                        <option value="to bottom">⬇️ Ke Bawah</option>
+                                        <option value="to top">⬆️ Ke Atas</option>
+                                        <option value="to right">➡️ Ke Kanan</option>
+                                        <option value="to left">⬅️ Ke Kiri</option>
+                                        <option value="45deg">↗️ Diagonal (45°)</option>
+                                        <option value="135deg">↘️ Diagonal (135°)</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="p-6 bg-white rounded-lg border border-gray-200">
+                                <h4 class="font-medium text-gray-800 mb-3">🎯 Preview Gradient:</h4>
+                                <div id="gradientPreview" class="w-full h-32 rounded-lg mb-4" style="background: linear-gradient(to bottom, #667eea, #764ba2);"></div>
+                                <p class="text-xs text-gray-500">Gradient akan terlihat seperti ini di halaman Anda</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Preset Backgrounds -->
+                    <div class="mb-8 p-6 bg-orange-50 rounded-xl border border-orange-200">
+                        <label class="block text-lg font-semibold text-orange-800 mb-4">🚀 Background Preset</label>
+                        <p class="text-sm text-gray-600 mb-4">Klik salah satu preset di bawah untuk mengatur gradient secara otomatis</p>
+                        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                            <button type="button" onclick="setPresetBackground('sunset')" class="h-24 rounded-xl bg-gradient-to-r from-orange-400 to-pink-600 hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl">
+                                <div class="h-full flex flex-col items-center justify-center text-white">
+                                    <i class="fas fa-sun text-2xl mb-1"></i>
+                                    <span class="font-medium">Sunset</span>
+                                </div>
+                            </button>
+                            <button type="button" onclick="setPresetBackground('ocean')" class="h-24 rounded-xl bg-gradient-to-r from-blue-400 to-cyan-500 hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl">
+                                <div class="h-full flex flex-col items-center justify-center text-white">
+                                    <i class="fas fa-water text-2xl mb-1"></i>
+                                    <span class="font-medium">Ocean</span>
+                                </div>
+                            </button>
+                            <button type="button" onclick="setPresetBackground('forest')" class="h-24 rounded-xl bg-gradient-to-r from-green-400 to-emerald-500 hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl">
+                                <div class="h-full flex flex-col items-center justify-center text-white">
+                                    <i class="fas fa-tree text-2xl mb-1"></i>
+                                    <span class="font-medium">Forest</span>
+                                </div>
+                            </button>
+                            <button type="button" onclick="setPresetBackground('purple')" class="h-24 rounded-xl bg-gradient-to-r from-purple-400 to-indigo-500 hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl">
+                                <div class="h-full flex flex-col items-center justify-center text-white">
+                                    <i class="fas fa-gem text-2xl mb-1"></i>
+                                    <span class="text-white text-xs font-medium">Purple</span>
+                                </div>
+                            </button>
+                            <button type="button" onclick="setPresetBackground('warm')" class="h-24 rounded-xl bg-gradient-to-r from-yellow-400 to-red-500 hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl">
+                                <div class="h-full flex flex-col items-center justify-center text-white">
+                                    <i class="fas fa-fire text-2xl mb-1"></i>
+                                    <span class="font-medium">Warm</span>
+                                </div>
+                            </button>
+                            <button type="button" onclick="setPresetBackground('cool')" class="h-24 rounded-xl bg-gradient-to-r from-cyan-400 to-blue-500 hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl">
+                                <div class="h-full flex flex-col items-center justify-center text-white">
+                                    <i class="fas fa-snowflake text-2xl mb-1"></i>
+                                    <span class="font-medium">Cool</span>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            
+            <div class="p-6 border-t border-gray-200 bg-gray-50">
+                <div class="flex justify-between items-center">
+                    <div class="text-sm text-gray-500">
+                        <i class="fas fa-info-circle mr-1"></i>
+                        Background akan langsung terupdate di preview
+                    </div>
+                    <div class="flex gap-3">
+                        <button onclick="hideEditBackgroundCustomModal()" class="px-6 py-3 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors font-medium">
+                            <i class="fas fa-times mr-2"></i>Batal
+                        </button>
+                        <button onclick="saveBackgroundCustom()" class="px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors font-medium shadow-lg">
+                            <i class="fas fa-save mr-2"></i>Simpan Background
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         // Data elemen-elemen yang tersedia
         const availableElements = [
@@ -1527,11 +1856,17 @@
                 name: 'Spotify Embed',
                 description: 'Embed playlist Spotify',
                 icon: 'fab fa-spotify'
+            },
+            {
+                id: 'background_custom',
+                name: 'Background Custom',
+                description: 'Ganti background halaman',
+                icon: 'fas fa-palette'
             }
         ];
 
         // Urutan elemen saat ini
-        let currentOrder = ['profil_pengguna', 'grid_produk', 'tombol_link', 'youtube_embeded', 'sosial_media', 'portfolio_project', 'gambar_thumbnail', 'spotify_embed'];
+        let currentOrder = ['profil_pengguna', 'grid_produk', 'tombol_link', 'youtube_embeded', 'sosial_media', 'portfolio_project', 'gambar_thumbnail', 'spotify_embed', 'background_custom'];
         let hiddenElements = new Set(); // Elemen yang disembunyikan
         let draggedElement = null;
 
@@ -2028,7 +2363,7 @@
             }
         }
 
-        // Edit elemen
+                // Edit elemen
         function editElement(elementId) {
             if (elementId === 'profil_pengguna') {
                 showEditProfileModal();
@@ -2046,9 +2381,11 @@
                 showEditGambarThumbnailModal();
             } else if (elementId === 'spotify_embed') {
                 showEditSpotifyEmbedModal();
+            } else if (elementId === 'background_custom') {
+                showEditBackgroundCustomModal();
             } else {
                 // Implementasi untuk edit elemen lainnya
-                console.log('Edit element:', elementId);
+            console.log('Edit element:', elementId);
                 showNotification(`Fitur edit untuk elemen "${availableElements.find(el => el.id === elementId)?.name}" akan segera tersedia!`, 'info');
             }
         }
@@ -2391,6 +2728,33 @@
         // Hide edit spotify embed modal
         function hideEditSpotifyEmbedModal() {
             document.getElementById('editSpotifyEmbedModal').classList.add('hidden');
+            
+            // Reset mobile modal behavior
+            if (window.innerWidth <= 768) {
+                document.body.style.overflow = '';
+            }
+        }
+
+        // Show edit background custom modal
+        function showEditBackgroundCustomModal() {
+            const modal = document.getElementById('editBackgroundCustomModal');
+            modal.classList.remove('hidden');
+            
+            // Debug: log modal elements
+            console.log('Background custom modal opened');
+            console.log('Form:', document.getElementById('backgroundCustomForm'));
+            console.log('Background type radio:', document.querySelector('input[name="background_type"]:checked'));
+            console.log('Hidden background type:', document.getElementById('hiddenBackgroundType'));
+            
+            // Mobile-specific modal behavior
+            if (window.innerWidth <= 768) {
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        // Hide edit background custom modal
+        function hideEditBackgroundCustomModal() {
+            document.getElementById('editBackgroundCustomModal').classList.add('hidden');
             
             // Reset mobile modal behavior
             if (window.innerWidth <= 768) {
@@ -3062,6 +3426,227 @@
             container.insertAdjacentHTML('beforeend', fieldHtml);
         }
 
+        // Background Custom Functions
+        function toggleBackgroundOptions() {
+            const backgroundType = document.querySelector('input[name="background_type"]:checked').value;
+            const imageSection = document.getElementById('backgroundImageSection');
+            const colorSection = document.getElementById('backgroundColorSection');
+            const gradientSection = document.getElementById('backgroundGradientSection');
+            const hiddenBackgroundType = document.getElementById('hiddenBackgroundType');
+            
+            // Update hidden input
+            if (hiddenBackgroundType) {
+                hiddenBackgroundType.value = backgroundType;
+            }
+            
+            // Hide all sections first with smooth animation
+            [imageSection, colorSection, gradientSection].forEach(section => {
+                if (section) {
+                    section.style.opacity = '0';
+                    section.style.transform = 'translateY(10px)';
+                    setTimeout(() => {
+                        section.style.display = 'none';
+                    }, 200);
+                }
+            });
+            
+            // Show selected section with smooth animation
+            setTimeout(() => {
+                let targetSection;
+                if (backgroundType === 'image') {
+                    targetSection = imageSection;
+                } else if (backgroundType === 'color') {
+                    targetSection = colorSection;
+                } else if (backgroundType === 'gradient') {
+                    targetSection = gradientSection;
+                }
+                
+                if (targetSection) {
+                    targetSection.style.display = 'block';
+                    setTimeout(() => {
+                        targetSection.style.opacity = '1';
+                        targetSection.style.transform = 'translateY(0)';
+                    }, 50);
+                }
+            }, 200);
+        }
+
+        function previewBackgroundImage(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('backgroundPreview').src = e.target.result;
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function setPresetBackground(preset) {
+            const backgroundType = document.querySelector('input[name="background_type"]:checked');
+            const gradientColor1 = document.getElementById('gradientColor1');
+            const gradientColor2 = document.getElementById('gradientColor2');
+            const gradientDirection = document.getElementById('gradientDirection');
+            
+            // Set radio button to gradient
+            backgroundType.value = 'gradient';
+            backgroundType.checked = true;
+            toggleBackgroundOptions();
+            
+            // Set preset colors and direction
+            switch(preset) {
+                case 'sunset':
+                    gradientColor1.value = '#f093fb';
+                    gradientColor2.value = '#f5576c';
+                    gradientDirection.value = '45deg';
+                    break;
+                case 'ocean':
+                    gradientColor1.value = '#4facfe';
+                    gradientColor2.value = '#00f2fe';
+                    gradientDirection.value = 'to bottom';
+                    break;
+                case 'forest':
+                    gradientColor1.value = '#43e97b';
+                    gradientColor2.value = '#38f9d7';
+                    gradientDirection.value = 'to bottom';
+                    break;
+                case 'purple':
+                    gradientColor1.value = '#667eea';
+                    gradientColor2.value = '#764ba2';
+                    gradientDirection.value = 'to bottom';
+                    break;
+                case 'warm':
+                    gradientColor1.value = '#fa709a';
+                    gradientColor2.value = '#fee140';
+                    gradientDirection.value = '45deg';
+                    break;
+                case 'cool':
+                    gradientColor1.value = '#a8edea';
+                    gradientColor2.value = '#fed6e3';
+                    gradientDirection.value = 'to bottom';
+                    break;
+            }
+            
+            // Update gradient preview
+            updateGradientPreview();
+        }
+        
+        function updateGradientPreview() {
+            const gradientPreview = document.getElementById('gradientPreview');
+            const color1 = document.getElementById('gradientColor1').value;
+            const color2 = document.getElementById('gradientColor2').value;
+            const direction = document.getElementById('gradientDirection').value;
+            
+            if (gradientPreview) {
+                gradientPreview.style.background = `linear-gradient(${direction}, ${color1}, ${color2})`;
+            }
+        }
+
+        function saveBackgroundCustom() {
+            try {
+                const form = document.getElementById('backgroundCustomForm');
+                if (!form) {
+                    console.error('Form not found');
+                    showNotification('Error: Form tidak ditemukan!', 'error');
+                    return;
+                }
+                
+                const formData = new FormData(form);
+                
+                // Get background type
+                const backgroundTypeRadio = document.querySelector('input[name="background_type"]:checked');
+                if (!backgroundTypeRadio) {
+                    showNotification('Pilih tipe background terlebih dahulu!', 'error');
+                    return;
+                }
+                
+                const backgroundType = backgroundTypeRadio.value;
+                console.log('Selected background type:', backgroundType);
+                
+                // Validate based on type
+                if (backgroundType === 'image') {
+                    const backgroundImage = document.getElementById('backgroundImage');
+                    if (!backgroundImage || !backgroundImage.files[0]) {
+                        showNotification('Pilih gambar background terlebih dahulu!', 'error');
+                        return;
+                    }
+                    console.log('Image file selected:', backgroundImage.files[0].name);
+                } else if (backgroundType === 'color') {
+                    const backgroundColor = document.getElementById('backgroundColor');
+                    if (!backgroundColor || !backgroundColor.value) {
+                        showNotification('Pilih warna background terlebih dahulu!', 'error');
+                        return;
+                    }
+                    console.log('Color selected:', backgroundColor.value);
+                } else if (backgroundType === 'gradient') {
+                    const gradientColor1 = document.getElementById('gradientColor1');
+                    const gradientColor2 = document.getElementById('gradientColor2');
+                    if (!gradientColor1 || !gradientColor2 || !gradientColor1.value || !gradientColor2.value) {
+                        showNotification('Pilih kedua warna gradient terlebih dahulu!', 'error');
+                        return;
+                    }
+                    console.log('Gradient colors:', gradientColor1.value, gradientColor2.value);
+                }
+
+                // Tampilkan loading state
+                const saveBtn = document.querySelector('#editBackgroundCustomModal button[onclick="saveBackgroundCustom()"]');
+                if (!saveBtn) {
+                    console.error('Save button not found');
+                    showNotification('Error: Button simpan tidak ditemukan!', 'error');
+                    return;
+                }
+                
+                const originalText = saveBtn.innerHTML;
+                saveBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Menyimpan...';
+                saveBtn.disabled = true;
+
+                // Debug: log data yang akan dikirim
+                console.log('Sending background custom data:');
+                for (let [key, value] of formData.entries()) {
+                    console.log(key, value);
+                }
+
+                // Add CSRF token
+                const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                formData.append('_token', csrfToken);
+
+                fetch('/update-background-custom', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => {
+                    console.log('Response status:', response.status);
+                    console.log('Response headers:', response.headers);
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Response data:', data);
+                    if (data.success) {
+                        showNotification(data.message, 'success');
+                        hideEditBackgroundCustomModal();
+                        
+                        // Auto refresh preview setelah save
+                        setTimeout(() => {
+                            refreshPreview();
+                        }, 500);
+                    } else {
+                        showNotification(data.message || 'Gagal menyimpan background custom!', 'error');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error saving background custom:', error);
+                    showNotification('Gagal menyimpan background custom! Error: ' + error.message, 'error');
+                })
+                .finally(() => {
+                    saveBtn.innerHTML = originalText;
+                    saveBtn.disabled = false;
+                });
+                
+            } catch (error) {
+                console.error('Unexpected error in saveBackgroundCustom:', error);
+                showNotification('Terjadi kesalahan yang tidak terduga: ' + error.message, 'error');
+            }
+        }
+
         function removeSpotifyField(fieldId) {
             const field = document.querySelector(`[data-field-id="${fieldId}"]`);
             if (field) {
@@ -3125,6 +3710,20 @@
             addYoutubeField();
             addPortfolioField();
             addSpotifyField();
+            
+            // Initialize background custom modal
+            toggleBackgroundOptions();
+            
+            // Add event listeners for gradient preview
+            setTimeout(() => {
+                const gradientColor1 = document.getElementById('gradientColor1');
+                const gradientColor2 = document.getElementById('gradientColor2');
+                const gradientDirection = document.getElementById('gradientDirection');
+                
+                if (gradientColor1) gradientColor1.addEventListener('input', updateGradientPreview);
+                if (gradientColor2) gradientColor2.addEventListener('input', updateGradientPreview);
+                if (gradientDirection) gradientDirection.addEventListener('change', updateGradientPreview);
+            }, 1000);
         }
 
         // Save layout
@@ -3411,7 +4010,7 @@
             }, 5000);
         }
 
-        // Reset layout ke default
+                // Reset layout ke default
         function resetLayout() {
             Swal.fire({
                 title: 'Reset Layout',
@@ -3424,10 +4023,10 @@
                 cancelButtonText: 'Batal'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    currentOrder = ['profil_pengguna', 'grid_produk', 'tombol_link', 'youtube_embeded', 'sosial_media', 'portfolio_project', 'gambar_thumbnail', 'spotify_embed'];
-                    hiddenElements.clear();
-                    renderElementList();
-                    setupDragAndDrop();
+                    currentOrder = ['profil_pengguna', 'grid_produk', 'tombol_link', 'youtube_embeded', 'sosial_media', 'portfolio_project', 'gambar_thumbnail', 'spotify_embed', 'background_custom'];
+                hiddenElements.clear();
+                renderElementList();
+                setupDragAndDrop();
                     
                     // Auto simpan layout dan refresh preview
                     autoSaveLayout();

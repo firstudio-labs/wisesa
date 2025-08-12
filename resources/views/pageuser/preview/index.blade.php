@@ -313,7 +313,21 @@
     <div class="iphone-mockup">
         <div class="iphone-screen">
             <div id="iphone-content"
-                style="background-image: url('https://images.pexels.com/photos/1037992/pexels-photo-1037992.jpeg?cs=srgb&dl=pexels-moose-photos-170195-1037992.jpg&fm=jpg'); background-position: center; background-size: cover;">
+                @if($backgroundCustom)
+                    @if($backgroundCustom['type'] === 'image')
+                        style="background-image: url('{{ asset($backgroundCustom['image']) }}'); background-position: center; background-size: cover;"
+                    @elseif($backgroundCustom['type'] === 'color')
+                        @if(isset($backgroundCustom['color_secondary']) && $backgroundCustom['color_secondary'])
+                            style="background: linear-gradient({{ $backgroundCustom['color'] }}, {{ $backgroundCustom['color_secondary'] }});"
+                        @else
+                            style="background-color: {{ $backgroundCustom['color'] }};"
+                        @endif
+                    @elseif($backgroundCustom['type'] === 'gradient')
+                        style="background: linear-gradient({{ $backgroundCustom['gradient']['direction'] }}, {{ $backgroundCustom['gradient']['color1'] }}, {{ $backgroundCustom['gradient']['color2'] }});"
+                    @endif
+                @else
+                    style="background-image: url('https://images.pexels.com/photos/1037992/pexels-photo-1037992.jpeg?cs=srgb&dl=pexels-moose-photos-170195-1037992.jpg&fm=jpg'); background-position: center; background-size: cover;"
+                @endif>
             </div>
         </div>
     </div>

@@ -64,5 +64,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/update-portfolio-project', [LinkController::class, 'updatePortfolioProject'])->name('update-portfolio-project');
     Route::post('/update-gambar-thumbnail', [LinkController::class, 'updateGambarThumbnail'])->name('update-gambar-thumbnail');
     Route::post('/update-spotify-embed', [LinkController::class, 'updateSpotifyEmbed'])->name('update-spotify-embed');
+    Route::post('/update-background-custom', [LinkController::class, 'updateBackgroundCustom'])->name('update-background-custom');
     Route::get('/test-profile', [LinkController::class, 'testProfile'])->name('test-profile');
 });

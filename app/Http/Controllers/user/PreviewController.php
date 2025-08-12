@@ -15,6 +15,7 @@ class PreviewController extends Controller
         // Process order and hidden data
         $order = [];
         $hidden = [];
+        $backgroundCustom = null;
         
         if ($link && isset($link->data_link['order'])) {
             $order = $link->data_link['order'];
@@ -24,6 +25,10 @@ class PreviewController extends Controller
             $hidden = $link->data_link['hidden'];
         }
         
-        return view('pageuser.preview.index', compact('link', 'order', 'hidden'));
+        if ($link && isset($link->data_link['background_custom'])) {
+            $backgroundCustom = $link->data_link['background_custom'];
+        }
+        
+        return view('pageuser.preview.index', compact('link', 'order', 'hidden', 'backgroundCustom'));
     }
 }
