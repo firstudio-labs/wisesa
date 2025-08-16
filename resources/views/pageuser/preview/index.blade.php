@@ -301,9 +301,8 @@
             <div class="flex items-center justify-center flex-wrap gap-2">
                 <img src="https://pandekakode.com/env/icon.png" alt="copyright" class="w-5 h-5">
                 <span class="text-sm">
-                    @if($link && isset($link->data_link['profil_pengguna']['username']) && !empty($link->data_link['profil_pengguna']['username']))
-                        Bergabung dengan {{ $link->data_link['profil_pengguna']['username'] }} di Bio Keren
-                    @endif
+
+                        Bergabung dengan Bio Keren
                 </span>
             </div>
         </div>

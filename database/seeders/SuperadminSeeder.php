@@ -6,7 +6,7 @@ use Illuminate\Database\Seeder;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
-class AsistenSeeder extends Seeder
+class SuperadminSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,9 +16,11 @@ class AsistenSeeder extends Seeder
     public function run()
     {
         User::create([
-            'username' => 'asisten',
-            'nama' => 'Asisten',
-            'role' => 'asisten',
+            'username' => 'superadmin',
+            'nama' => 'Superadmin',
+            'role' => 'superadmin',
+            'email' => 'superadmin@gmail.com',
+            'no_wa' => '085156985698',
             'password' => Hash::make('password'), // Pastikan mengganti 'password' dengan kata sandi yang aman
         ]);
     }

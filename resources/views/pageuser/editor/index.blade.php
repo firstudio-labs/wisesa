@@ -57,7 +57,7 @@
         }
         
         .preview-header {
-            background: white;
+            background: rgb(255, 255, 255);
             padding: 15px 20px;
             border-bottom: 1px solid #e5e7eb;
             display: flex;
@@ -530,16 +530,70 @@
                 font-size: 14px;
             }
             
-            /* Mobile Modal */
-            #addElementModal .bg-white {
-                margin: 0;
-                max-width: 100%;
-                max-height: 85vh;
+                    /* Mobile Modal */
+        #addElementModal .bg-white {
+            margin: 0;
+            max-width: 100%;
+            max-height: 85vh;
+        }
+        
+        #addElementModal h3 {
+            font-size: 16px;
+        }
+        
+        /* Ensure modal content is responsive */
+        #addElementModal .p-6 {
+            padding: 1.5rem;
+        }
+        
+        @media (max-width: 640px) {
+            #addElementModal .p-6 {
+                padding: 1rem;
             }
             
-            #addElementModal h3 {
+            #addElementModal .max-w-2xl {
+                max-width: 95vw;
+            }
+        }
+        
+        /* Mobile responsive badges */
+        @media (max-width: 768px) {
+            #addElementModal .element-item .element-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+            
+            #addElementModal .element-item .element-header .flex-shrink-0 {
+                align-self: flex-end;
+                margin-left: 0 !important;
+            }
+            
+            #addElementModal .element-item .element-title {
+                font-size: 14px;
+            }
+            
+            #addElementModal .element-item .element-preview {
+                font-size: 12px;
+            }
+            
+            #addElementModal .element-item {
+                padding: 12px;
+            }
+            
+            #addElementModal .element-item .w-12.h-12 {
+                width: 40px;
+                height: 40px;
+            }
+            
+            #addElementModal .element-item .w-12.h-12 i {
                 font-size: 16px;
             }
+            
+            #addElementModal .element-item .flex-1.min-w-0 {
+                margin-right: 0;
+            }
+        }
             
             /* Mobile Preview */
             .preview-iframe {
@@ -598,6 +652,103 @@
             }
             
             .save-btn {
+            
+            /* Extra small screens */
+            @media (max-width: 480px) {
+                #addElementModal .element-item .element-header {
+                    gap: 6px;
+                }
+                
+                #addElementModal .element-item .element-title {
+                    font-size: 13px;
+                }
+                
+                #addElementModal .element-item .element-preview {
+                    font-size: 11px;
+                }
+                
+                #addElementModal .element-item {
+                    padding: 10px;
+                }
+                
+                #addElementModal .element-item .w-12.h-12 {
+                    width: 36px;
+                    height: 36px;
+                }
+                
+                #addElementModal .element-item .w-12.h-12 i {
+                    font-size: 14px;
+                }
+                
+                #addElementModal .element-item .flex-shrink-0 span {
+                    font-size: 10px;
+                    padding: 4px 8px;
+                }
+                
+                #addElementModal .element-item .flex-1.min-w-0 {
+                    margin-right: 0;
+                }
+            }
+        }
+        
+        /* Modal styling */
+        #addElementModal .element-item {
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            margin-bottom: 12px;
+        }
+        
+        #addElementModal .element-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border-color: #3b82f6;
+        }
+        
+        #addElementModal .element-item:active {
+            transform: translateY(0);
+        }
+        
+        #addElementModal .element-item .element-header {
+            margin-bottom: 0;
+        }
+        
+        #addElementModal .element-item .element-title {
+            font-size: 16px;
+            margin-bottom: 4px;
+        }
+        
+        #addElementModal .element-item .element-preview {
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        
+        /* Line clamp utility */
+        .line-clamp-2 {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        /* Truncate utility */
+        .truncate {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        
+        /* Ensure badges are always visible */
+        #addElementModal .element-item .flex-shrink-0 {
+            position: relative;
+            z-index: 10;
+        }
+        
+        #addElementModal .element-item .flex-shrink-0 span {
+            display: inline-block;
+            max-width: 100%;
+            word-wrap: break-word;
+            white-space: nowrap;
+        }
                 bottom: 12px;
                 right: 12px;
                 padding: 8px 16px;
@@ -1183,6 +1334,7 @@
                 </button>
                 <h1 class="text-xl font-bold">Bio Keren Editor</h1>
                 <p class="text-sm text-gray-300 mt-2">Atur susunan elemen halaman</p>
+               
             </div>
             
             <div class="sidebar-content">
@@ -1190,18 +1342,32 @@
                     <i class="fas fa-plus mr-2"></i>Tambah Elemen Baru
                 </button>
                 
+                <div class="text-center text-gray-500 py-4">
+                    <i class="fas fa-info-circle text-blue-500 mb-2"></i>
+                    <p class="text-xs">Layout akan dimuat dari server atau klik tombol untuk menambah elemen</p>
+                </div>
+                
                 <div class="flex gap-2 mb-4">
                     <button onclick="loadLayoutFromServer()" class="flex-1 control-btn btn-edit">
                         <i class="fas fa-cloud-download-alt mr-2"></i>Load dari Server
                     </button>
-                    <button onclick="resetLayout()" class="flex-1 control-btn btn-delete">
-                        <i class="fas fa-undo mr-2"></i>Reset
-                    </button>
+                    
                 </div>
                 
-                <div class="section-title">Elemen Halaman</div>
+                <div class="text-center text-gray-500 py-2">
+                    <p class="text-xs">Layout akan dimuat dari server saat halaman dibuka</p>
+                </div>
+                
+                <div class="section-title">
+                    Elemen Halaman
+                    <span id="elementCount" class="ml-2 text-sm bg-blue-100 text-blue-800 px-2 py-1" style="border-radius: 9999px; display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-align: center;">0</span>
+                </div>
                 <div id="elementList" class="space-y-2">
-                    <!-- Elemen-elemen akan di-generate secara dinamis -->
+                    <!-- Elemen-elemen akan ditampilkan di sini -->
+                    <div class="text-center text-gray-500 py-8">
+                        <i class="fas fa-plus-circle text-4xl mb-4"></i>
+                        <p class="text-sm">Layout akan dimuat dari server atau klik tombol untuk menambah elemen</p>
+                    </div>
                 </div>
                 
                 <!-- Hidden Elements Section -->
@@ -1215,6 +1381,14 @@
                     <div id="hiddenElementList" class="space-y-2">
                         <!-- Elemen tersembunyi akan di-generate di sini -->
                     </div>
+                </div>
+                
+                <!-- Quick Add Button -->
+                <div class="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
+                    <p class="text-sm text-blue-800 mb-3 text-center">Perlu elemen lain?</p>
+                    <button onclick="showAddElementModal()" class="w-full control-btn btn-edit">
+                        <i class="fas fa-plus mr-2"></i>Tambah Elemen Lagi
+                    </button>
                 </div>
             </div>
         </div>
@@ -1246,16 +1420,48 @@
     
     <!-- Add Element Modal -->
     <div id="addElementModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-[100000] flex items-center justify-center p-4">
-        <div class="bg-white rounded-lg max-w-md w-full max-h-[90vh] flex flex-col">
+        <div class="bg-white rounded-xl max-w-2xl w-full max-h-[90vh] flex flex-col shadow-2xl">
             <div class="p-6 border-b border-gray-200">
-                <h3 class="text-lg font-bold">Tambah Elemen Baru</h3>
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h3 class="text-lg font-bold">Pilih Elemen untuk Ditambahkan</h3>
+                        <p class="text-sm text-gray-600 mt-1">Semua elemen tersedia untuk ditambahkan ke halaman Anda</p>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-2xl font-bold text-blue-600" id="modalElementCount">0</div>
+                        <div class="text-xs text-gray-500">elemen tersedia</div>
+                    </div>
+                </div>
             </div>
-            <div id="availableElements" class="flex-1 overflow-y-auto p-6 space-y-2">
-                <!-- Elemen yang tersedia akan di-generate di sini -->
+            <div class="flex-1 overflow-y-auto p-6">
+                <!-- Elemen yang sudah ditambahkan -->
+                <div id="addedElementsSection" class="mb-6" style="display: none;">
+                    <h4 class="text-sm font-semibold text-gray-700 mb-3 flex items-center">
+                        <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                        Elemen yang Sudah Ditambahkan (<span id="addedElementsCount">0</span>)
+                    </h4>
+                    <div id="addedElementsList" class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
+                        <!-- Elemen yang sudah ditambahkan akan di-generate di sini -->
+                    </div>
+                </div>
+                
+                <!-- Semua elemen yang tersedia -->
+                <div>
+                    <h4 class="text-sm font-semibold text-gray-700 mb-3 flex items-center">
+                        <i class="fas fa-list text-blue-500 mr-2"></i>
+                        Semua Elemen Tersedia
+                    </h4>
+                    <div id="availableElements" class="space-y-2">
+                        <!-- Elemen yang tersedia akan di-generate di sini -->
+                    </div>
+                </div>
             </div>
             <div class="p-6 border-t border-gray-200">
-                <div class="flex justify-end gap-2">
-                    <button onclick="hideAddElementModal()" class="control-btn btn-delete">Batal</button>
+                <div class="flex justify-between items-center">
+                    <p class="text-sm text-gray-500">Klik elemen untuk menambahkannya ke halaman</p>
+                    <div class="flex gap-2">
+                        <button onclick="hideAddElementModal()" class="control-btn btn-delete">Tutup</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1862,14 +2068,54 @@
                 name: 'Background Custom',
                 description: 'Ganti background halaman',
                 icon: 'fas fa-palette'
-            }
+            },
+
         ];
 
-        // Urutan elemen saat ini
-        let currentOrder = ['profil_pengguna', 'grid_produk', 'tombol_link', 'youtube_embeded', 'sosial_media', 'portfolio_project', 'gambar_thumbnail', 'spotify_embed', 'background_custom'];
+        // Urutan elemen saat ini (dimulai dengan kosong)
+        let currentOrder = [];
         let hiddenElements = new Set(); // Elemen yang disembunyikan
         let draggedElement = null;
 
+        // Cek layout dari server
+        function checkServerLayout() {
+            fetch('/get-layout', {
+                method: 'GET',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success && data.data && data.data.order && data.data.order.length > 0) {
+                    // Ada data dari server, isi sidebar
+                    const layoutData = data.data;
+                    currentOrder = layoutData.order;
+                    hiddenElements = new Set(layoutData.hidden || []);
+                    renderElementList();
+                    setupDragAndDrop();
+                    showNotification('Layout dari server berhasil dimuat!', 'success');
+                } else {
+                    // Tidak ada data dari server, sidebar tetap kosong
+                    console.log('Tidak ada data layout dari server');
+                }
+            })
+            .catch(error => {
+                console.error('Error checking server layout:', error);
+                // Jika error, sidebar tetap kosong
+                console.log('Error saat memeriksa layout server');
+            });
+        }
+        
+        // Auto load layout dari server setiap 30 detik
+        function startAutoLoadLayout() {
+            setInterval(() => {
+                if (currentOrder.length === 0) {
+                    checkServerLayout();
+                }
+            }, 30000); // 30 detik
+        }
+        
         // Inisialisasi editor
         function initEditor() {
             renderElementList();
@@ -1882,6 +2128,26 @@
                 iframe.style.width = '100%';
                 iframe.style.margin = '0';
             }
+            
+            // Cek apakah ada data dari server terlebih dahulu
+            checkServerLayout();
+            
+            // Mulai auto load layout dari server
+            startAutoLoadLayout();
+            
+            // Tambahkan event listener untuk ESC key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    hideAddElementModal();
+                }
+            });
+            
+            // Tambahkan event listener untuk klik di luar modal
+            document.getElementById('addElementModal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    hideAddElementModal();
+                }
+            });
         }
         
         // Toggle sidebar untuk mobile
@@ -1897,10 +2163,19 @@
             const elementList = document.getElementById('elementList');
             const hiddenElementList = document.getElementById('hiddenElementList');
             const hiddenElementsSection = document.getElementById('hiddenElementsSection');
+            const elementCount = document.getElementById('elementCount');
+            
+            // Update element count
+            if (elementCount) {
+                elementCount.textContent = currentOrder.length;
+            }
             
             // Clear both lists
             elementList.innerHTML = '';
             hiddenElementList.innerHTML = '';
+            
+            // Log untuk debugging
+            console.log(`Rendering element list. Current order: ${currentOrder.length}, Hidden: ${hiddenElements.size}`);
             
             // Separate visible and hidden elements
             const visibleElements = [];
@@ -1918,6 +2193,20 @@
             });
             
             // Render visible elements with drop zones
+            if (visibleElements.length === 0) {
+                elementList.innerHTML = `
+                    <div class="text-center text-gray-500 py-8">
+                        <i class="fas fa-plus-circle text-4xl mb-4"></i>
+                        <p class="text-sm mb-2">Belum ada elemen yang ditambahkan</p>
+                        <p class="text-xs text-gray-400">Layout akan dimuat dari server atau klik tombol untuk menambah elemen</p>
+                    </div>
+                `;
+                
+                // Log untuk debugging
+                console.log('Tidak ada elemen yang ditampilkan, sidebar dikosongkan');
+                return;
+            }
+            
             visibleElements.forEach((element, listIndex) => {
                 // Add drop zone before first element
                 if (listIndex === 0) {
@@ -1949,9 +2238,9 @@
                             <button class="control-btn btn-toggle" onclick="toggleElement('${element.id}')" title="Sembunyikan">
                                 <i class="fas fa-eye"></i>
                             </button>
-                            <button class="control-btn btn-delete" onclick="removeElement('${element.id}')" title="Hapus">
+                            ${visibleElements.length > 1 ? `<button class="control-btn btn-delete" onclick="removeElement('${element.id}')" title="Hapus">
                                 <i class="fas fa-trash"></i>
-                            </button>
+                            </button>` : ''}
                         </div>
                     </div>
                     <div class="element-preview">
@@ -2048,6 +2337,9 @@
             if (window.innerWidth <= 768) {
                 elementItems.forEach(item => setupTouchEvents(item));
             }
+            
+            // Log untuk debugging
+            console.log(`Drag and drop setup selesai. Elemen: ${elementItems.length}, Drop zones: ${dropZones.length}`);
         }
         
         // Setup touch events for mobile
@@ -2394,6 +2686,12 @@
         function removeElement(elementId) {
             const elementName = availableElements.find(el => el.id === elementId)?.name;
             
+            // Validasi bahwa elemen ada dalam currentOrder
+            if (!currentOrder.includes(elementId)) {
+                showNotification(`Elemen "${elementName}" tidak ditemukan dalam layout!`, 'error');
+                return;
+            }
+            
             Swal.fire({
                 title: 'Hapus Elemen',
                 text: `Apakah Anda yakin ingin menghapus elemen "${elementName}"?\n\nTindakan ini tidak dapat dibatalkan dan elemen akan dihapus dari layout.`,
@@ -2409,11 +2707,21 @@
                     if (index > -1) {
                         currentOrder.splice(index, 1);
                         hiddenElements.delete(elementId); // Hapus dari hidden elements juga
+                        
+                        // Update UI
                         renderElementList();
                         setupDragAndDrop();
                         
                         // Auto simpan layout dan refresh preview
                         autoSaveLayout();
+                        
+                        // Update preview setelah penghapusan
+                        setTimeout(() => {
+                            updatePreview();
+                        }, 100);
+                        
+                        // Log untuk debugging
+                        console.log(`Elemen "${elementName}" berhasil dihapus. Sisa elemen: ${currentOrder.length}`);
                         
                         showNotification(`Elemen "${elementName}" berhasil dihapus!`, 'success');
                     }
@@ -2426,6 +2734,9 @@
             const iframe = document.getElementById('previewFrame');
             if (iframe.contentWindow) {
                 try {
+                    // Log untuk debugging
+                    console.log('Updating preview with order:', currentOrder);
+                    
                     // Coba kirim pesan ke iframe untuk update layout
                     iframe.contentWindow.postMessage({
                         type: 'UPDATE_LAYOUT',
@@ -2454,6 +2765,18 @@
             try {
                 const mainContent = iframe.contentDocument.querySelector('.main-content');
                 if (!mainContent) return;
+
+                // Jika tidak ada elemen, kosongkan konten dan return
+                if (currentOrder.length === 0) {
+                    const sections = mainContent.querySelectorAll('section');
+                    sections.forEach(section => {
+                        if (section.parentNode) {
+                            section.parentNode.removeChild(section);
+                        }
+                    });
+                    console.log('Preview dikosongkan karena tidak ada elemen');
+                    return;
+                }
 
                 // Dapatkan semua section yang ada
                 const sections = mainContent.querySelectorAll('section');
@@ -2532,23 +2855,66 @@
         function showAddElementModal() {
             const modal = document.getElementById('addElementModal');
             const availableElementsDiv = document.getElementById('availableElements');
+            const addedElementsSection = document.getElementById('addedElementsSection');
+            const addedElementsCount = document.getElementById('addedElementsCount');
+            const addedElementsList = document.getElementById('addedElementsList');
             
-            // Filter elemen yang belum ada
-            const unusedElements = availableElements.filter(el => !currentOrder.includes(el.id));
+            // Update counter di modal
+            const modalElementCount = document.getElementById('modalElementCount');
+            if (modalElementCount) {
+                modalElementCount.textContent = availableElements.length;
+            }
             
-            availableElementsDiv.innerHTML = unusedElements.map(el => `
-                <div class="element-item cursor-pointer" onclick="addElement('${el.id}')">
+            // Update bagian elemen yang sudah ditambahkan
+            if (currentOrder.length > 0 && addedElementsSection && addedElementsCount && addedElementsList) {
+                addedElementsCount.textContent = currentOrder.length;
+                addedElementsList.innerHTML = currentOrder.map(elementId => {
+                    const element = availableElements.find(el => el.id === elementId);
+                    return element ? `
+                        <div class="bg-green-50 border border-green-200 rounded-lg p-3 flex items-center">
+                            <div class="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center mr-3">
+                                <i class="${element.icon} text-green-600 text-sm"></i>
+                            </div>
+                            <div class="flex-1">
+                                <div class="text-sm font-medium text-green-800">${element.name}</div>
+                                <div class="text-xs text-green-600">Sudah aktif</div>
+                            </div>
+                        </div>
+                    ` : '';
+                }).join('');
+                addedElementsSection.style.display = 'block';
+            } else if (addedElementsSection) {
+                addedElementsSection.style.display = 'none';
+            }
+            
+            // Tampilkan semua elemen yang tersedia
+            availableElementsDiv.innerHTML = availableElements.map(el => `
+                <div class="element-item cursor-pointer hover:bg-blue-50 transition-all duration-200 border-2 border-transparent hover:border-blue-200 rounded-lg p-4" onclick="addElement('${el.id}')">
                     <div class="element-header">
-                        <div class="flex items-center">
-                            <i class="${el.icon} mr-3 text-blue-500"></i>
-                            <div class="element-title">${el.name}</div>
+                        <div class="flex items-center flex-1 min-w-0">
+                            <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
+                                <i class="${el.icon} text-blue-600 text-xl"></i>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <div class="element-title font-semibold text-gray-800 truncate">${el.name}</div>
+                                <div class="element-preview text-sm text-gray-600 mt-1 line-clamp-2">${el.description}</div>
+                            </div>
+                        </div>
+                        <div class="flex-shrink-0 ml-3">
+                            ${currentOrder.includes(el.id) ? '<span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full font-medium whitespace-nowrap">✓ Sudah Ditambahkan</span>' : '<span class="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full font-medium whitespace-nowrap">+ Tambahkan</span>'}
                         </div>
                     </div>
-                    <div class="element-preview">${el.description}</div>
                 </div>
             `).join('');
             
             modal.classList.remove('hidden');
+            
+            // Tampilkan notifikasi informatif
+            if (currentOrder.length === 0) {
+                showNotification('Pilih elemen pertama untuk memulai halaman Anda!', 'info');
+            } else {
+                showNotification(`Halaman Anda memiliki ${currentOrder.length} elemen aktif`, 'info');
+            }
             
             // Mobile-specific modal behavior
             if (window.innerWidth <= 768) {
@@ -2854,6 +3220,7 @@
         // Add element
         function addElement(elementId) {
             if (!currentOrder.includes(elementId)) {
+                const element = availableElements.find(el => el.id === elementId);
                 currentOrder.push(elementId);
                 renderElementList();
                 setupDragAndDrop();
@@ -2862,7 +3229,15 @@
                 autoSaveLayout();
                 
                 hideAddElementModal();
-                showNotification('Elemen berhasil ditambahkan!', 'success');
+                showNotification(`Elemen "${element.name}" berhasil ditambahkan!`, 'success');
+                
+                // Refresh modal untuk menampilkan status "Sudah Ditambahkan"
+                setTimeout(() => {
+                    showAddElementModal();
+                }, 1000);
+            } else {
+                const element = availableElements.find(el => el.id === elementId);
+                showNotification(`Elemen "${element.name}" sudah ada di halaman!`, 'info');
             }
         }
 
@@ -3796,6 +4171,9 @@
                     timestamp: new Date().toISOString()
                 };
                 
+                // Log untuk debugging
+                console.log('Auto saving layout:', layoutData);
+                
                 // Simpan ke localStorage sebagai backup
                 localStorage.setItem('bioKerenLayout', JSON.stringify(layoutData));
                 
@@ -3945,9 +4323,9 @@
             })
             .then(response => response.json())
             .then(data => {
-                if (data.success && data.data) {
+                if (data.success && data.data && data.data.order && data.data.order.length > 0) {
                     const layoutData = data.data;
-                    currentOrder = layoutData.order || currentOrder;
+                    currentOrder = layoutData.order;
                     hiddenElements = new Set(layoutData.hidden || []);
                     renderElementList();
                     setupDragAndDrop();
@@ -3960,12 +4338,20 @@
                     showNotification('Layout berhasil dimuat dari server!', 'success');
                     console.log('Layout berhasil dimuat dari server');
                 } else {
-                    showNotification(data.message || 'Tidak ada layout tersimpan', 'info');
+                    // Jika tidak ada data dari server, kosongkan sidebar
+                    currentOrder = [];
+                    hiddenElements.clear();
+                    renderElementList();
+                    showNotification('Tidak ada layout tersimpan, sidebar dikosongkan', 'info');
                 }
             })
             .catch(error => {
                 console.error('Error loading layout from server:', error);
                 showNotification('Gagal memuat layout dari server!', 'error');
+                // Jika error, kosongkan sidebar
+                currentOrder = [];
+                hiddenElements.clear();
+                renderElementList();
             })
             .finally(() => {
                 // Reset button state
@@ -4023,8 +4409,9 @@
                 cancelButtonText: 'Batal'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    currentOrder = ['profil_pengguna', 'grid_produk', 'tombol_link', 'youtube_embeded', 'sosial_media', 'portfolio_project', 'gambar_thumbnail', 'spotify_embed', 'background_custom'];
-                hiddenElements.clear();
+                    // Kosongkan sidebar
+                    currentOrder = [];
+                    hiddenElements.clear();
                 renderElementList();
                 setupDragAndDrop();
                     
@@ -4084,3 +4471,4 @@
     </script>
 </body>
 </html>
+
