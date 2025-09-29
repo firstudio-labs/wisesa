@@ -5,73 +5,92 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Linkskuy - Request OTP</title>
-
-  <!-- favicon -->
-  <link rel="shortcut icon" href="{{ asset('linkskuy') }}/assets/images/logo.ico" type="image/x-icon">
-
-  <!-- custom css link -->
-  <link rel="stylesheet" href="{{ asset('linkskuy') }}/assets/css/style.css">
-  <link rel="stylesheet" href="{{ asset('linkskuy') }}/assets/css/authstyle.css">
-
-  <!-- google font link -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <title>Request OTP | StarterKit-v2</title>
+  <link rel="icon" href="{{ asset('admin') }}/assets/images/favicon.svg" type="image/x-icon">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&display=swap" id="main-font-link">
+  <link rel="stylesheet" href="{{ asset('admin') }}/assets/fonts/tabler-icons.min.css">
+  <link rel="stylesheet" href="{{ asset('admin') }}/assets/fonts/feather.css">
+  <link rel="stylesheet" href="{{ asset('admin') }}/assets/fonts/fontawesome.css">
+  <link rel="stylesheet" href="{{ asset('admin') }}/assets/fonts/material.css">
+  <link rel="stylesheet" href="{{ asset('admin') }}/assets/css/style.css" id="main-style-link">
+  <link rel="stylesheet" href="{{ asset('admin') }}/assets/css/style-preset.css">
+  @include('sweetalert::alert')
+  <style>
+    body { background: linear-gradient(180deg, #f8fafc 0%, #eef2f7 100%); }
+    .auth-header { display: flex; align-items: center; justify-content: center; gap: 10px; }
+    .auth-header img { height: 42px; }
+    .brand-title { font-weight: 700; letter-spacing: 0.2px; }
+    .card.rounded-4 { border-radius: 1rem !important; }
+  </style>
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons/5.5.2/dist/ionicons/ionicons.js"></script>
 </head>
 
 <body>
-  <!-- #MAIN -->
-  <main>
-    <!-- Request OTP Container -->
-    <div class="login-container">
-      <!-- Request OTP Form -->
-      <div class="login-form-container">
-        <div class="form-header">
-          <div class="reset-icon">
-            <ion-icon name="key-outline" style="font-size: 48px; color: #667eea;"></ion-icon>
-          </div>
-          <h2 class="form-title">Reset Password</h2>
-          <p class="form-subtitle">Masukkan nomor WhatsApp yang terdaftar untuk menerima kode OTP</p>
+  <div class="loader-bg">
+    <div class="loader-track">
+      <div class="loader-fill"></div>
+    </div>
+  </div>
+
+  <div class="auth-main">
+    <div class="auth-wrapper v3">
+      <div class="auth-form">
+        <div class="auth-header">
+          <a href="#" class="d-inline-flex align-items-center text-decoration-none">
+            <img src="{{ asset('env') }}/logo_text.png" alt="StarterKit-v2">
+            <span class="ms-2 h5 mb-0 brand-title text-dark">StarterKit-v2</span>
+          </a>
         </div>
+        <div class="card my-5 shadow-lg border-0 rounded-4">
+          <div class="card-body p-4 p-md-5">
+            <div class="mb-4">
+              <h3 class="mb-0 text-center"><b>Reset Password</b></h3>
+            </div>
+            <div class="text-center mb-4">
+              <a href="{{ route('login') }}" class="link-primary">Masuk</a>
+            </div>
 
-        <form class="login-form" action="{{ route('forgot-password.request-otp') }}" method="POST">
-          @csrf
-          <!-- WhatsApp Number Field -->
-          <div class="form-group">
-            <label for="no_wa" class="form-label">
-              <ion-icon name="logo-whatsapp"></ion-icon>
-              Nomor WhatsApp
-            </label>
-            <input type="tel" id="no_wa" name="no_wa" class="form-input"
-              placeholder="Contoh: 08123456789" required>
-            <small class="form-help">Masukkan nomor WhatsApp yang terdaftar di akun Anda</small>
+            <form action="{{ route('forgot-password.request-otp') }}" method="POST">
+              @csrf
+              <div class="mb-3">
+                <label for="no_wa" class="form-label">Nomor WhatsApp</label>
+                <input type="tel" id="no_wa" name="no_wa" class="form-control" placeholder="Contoh: 08123456789" required>
+                <div class="form-text">Gunakan nomor yang terdaftar di akun</div>
+              </div>
+              <div class="d-grid mt-2">
+                <button type="submit" class="btn btn-primary">Kirim Kode OTP</button>
+              </div>
+            </form>
           </div>
-
-          <!-- Request OTP Button -->
-          <button type="submit" class="button-custom-shine"
-            style="padding: 8px 18px; background-color: #667eea; color: #fff; border-radius: 6px; border: 2px solid #222; font-size: 1rem; font-family: inherit; cursor: pointer; font-weight: 600; box-shadow: 0 2px 8px rgba(0,0,0,0.07); transition: background 0.2s, color 0.2s, box-shadow 0.2s; display: flex; justify-content: center; align-items: center; text-align: center; width: 100%;">
-            Kirim Kode OTP
-          </button>
-
-          <!-- Back to Login Link -->
-          <div class="register-section">
-            <p>Ingat password? <a href="{{ route('login') }}" class="register-link">Masuk sekarang</a></p>
+        </div>
+        <div class="auth-footer row align-items-center">
+          <div class="col my-1">
+            <p class="m-0">&copy; {{ date('Y') }} <span class="fw-semibold">StarterKit-v2</span></p>
           </div>
-        </form>
+          <div class="col-auto my-1">
+            <ul class="list-inline footer-link mb-0">
+              <li class="list-inline-item"><a href="{{ url('/') }}">Home</a></li>
+              <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
+              <li class="list-inline-item"><a href="#">Contact</a></li>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
-  </main>
-
-  <!-- custom js link -->
-  <script src="{{ asset('linkskuy') }}/assets/js/reset.js"></script>
-
-  <!-- ionicon link -->
-  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-  <script nomodule src="https://unpkg.com/ionicons/5.5.2/dist/ionicons/ionicons.js"></script>
-
-  <!-- SweetAlert -->
+  </div>
   @include('sweetalert::alert')
+  <script src="{{ asset('admin') }}/assets/js/plugins/popper.min.js"></script>
+  <script src="{{ asset('admin') }}/assets/js/plugins/simplebar.min.js"></script>
+  <script src="{{ asset('admin') }}/assets/js/plugins/bootstrap.min.js"></script>
+  <script src="{{ asset('admin') }}/assets/js/fonts/custom-font.js"></script>
+  <script src="{{ asset('admin') }}/assets/js/pcoded.js"></script>
+  <script src="{{ asset('admin') }}/assets/js/plugins/feather.min.js"></script>
+  <script>layout_change('light');</script>
+  <script>change_box_container('false');</script>
+  <script>layout_rtl_change('false');</script>
+  <script>preset_change("preset-1");</script>
+  <script>font_change("Public-Sans");</script>
 </body>
 
 </html>

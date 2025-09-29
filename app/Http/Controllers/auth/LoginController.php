@@ -41,12 +41,9 @@ class LoginController extends Controller
             if ($user->role == 'superadmin') {
                 Alert::success('Login Successful', 'Welcome back, Superadmin!');
                 return redirect()->route('dashboard-superadmin');
-            } else if ($user->role == 'asisten') {
-                Alert::success('Login Successful', 'Welcome back, Asisten!');
-                return redirect()->route('home');
             } else if ($user->role == 'user') {
                 Alert::success('Login Successful', 'Welcome back, User!');
-                return redirect('/home');
+                return redirect('/');
             } else {
                 Auth::logout();
                 Alert::error('Login Failed', 'You are not authorized to access this area.');

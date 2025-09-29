@@ -7,14 +7,26 @@ use App\Http\Controllers\{
     DashboardController,
 };
 
-use App\Http\Controllers\superadmin\{
+use App\Http\Controllers\admin\{
+    ArtikelController,
+    KategoriGambarController,
+    KategoriProdukController,
+    LayananController,
+    ProdukController,
+    ProfilController,
+    TentangController,
+    TestimoniController,
+    TimController,
     DashboardSuperAdminController,
+    GaleriController,
+    KategoriArtikelController,
+    KomentarArtikelController,
+    KontakController,
+    BerandaController,
 };
-use App\Http\Controllers\user\{
-    PreviewController,
-    LinkController,
-    EditorController,
-};
+// use App\Http\Controllers\user\{
+
+// };
 use App\Http\Controllers\auth\{
     LoginController,
     RegisterController,
@@ -66,24 +78,24 @@ Route::post('/forgot-password/reset', [ForgotPasswordController::class, 'resetPa
 
 Route::group(['middleware' => ['role:superadmin']], function () {
     Route::get('/dashboard-superadmin', [DashboardSuperAdminController::class, 'index'])->name('dashboard-superadmin');
+    Route::resource('beranda', BerandaController::class);
+    Route::resource('artikel', ArtikelController::class);
+    Route::resource('galeri', GaleriController::class);
+    Route::resource('kontak', KontakController::class);
+    Route::resource('layanan', LayananController::class);
+    Route::resource('produk', ProdukController::class);
+    Route::resource('profil', ProfilController::class);
+    Route::resource('tentang', TentangController::class);
+    Route::resource('testimoni', TestimoniController::class);
+    Route::resource('tim', TimController::class);
+    Route::resource('kategoriArtikel', KategoriArtikelController::class);
+    Route::resource('komentarArtikel', KomentarArtikelController::class);
+    Route::resource('kategoriProduk', KategoriProdukController::class);
+    Route::resource('kategoriGambar', KategoriGambarController::class);
 });
 
-Route::get('/preview', [PreviewController::class, 'index'])->name('preview');
 
 // Route untuk user
 Route::group(['middleware' => ['auth']], function () {
-    Route::get('/editor', [EditorController::class, 'index'])->name('editor');
-    Route::get('/get-layout', [LinkController::class, 'getLayout'])->name('get-layout');
-    Route::get('/test-profile', [LinkController::class, 'testProfile'])->name('test-profile');
-    Route::post('/store-link', [LinkController::class, 'store'])->name('store-link');
-    Route::post('/store-layout', [LinkController::class, 'storeLayout'])->name('store-layout');
-    Route::post('/update-profile', [LinkController::class, 'updateProfile'])->name('update-profile');
-    Route::post('/update-grid-produk', [LinkController::class, 'updateGridProduk'])->name('update-grid-produk');
-    Route::post('/update-tombol-link', [LinkController::class, 'updateTombolLink'])->name('update-tombol-link');
-    Route::post('/update-youtube-embed', [LinkController::class, 'updateYoutubeEmbed'])->name('update-youtube-embed');
-    Route::post('/update-sosial-media', [LinkController::class, 'updateSosialMedia'])->name('update-sosial-media');
-    Route::post('/update-portfolio-project', [LinkController::class, 'updatePortfolioProject'])->name('update-portfolio-project');
-    Route::post('/update-gambar-thumbnail', [LinkController::class, 'updateGambarThumbnail'])->name('update-gambar-thumbnail');
-    Route::post('/update-spotify-embed', [LinkController::class, 'updateSpotifyEmbed'])->name('update-spotify-embed');
-    Route::post('/update-background-custom', [LinkController::class, 'updateBackgroundCustom'])->name('update-background-custom');
+  
 });

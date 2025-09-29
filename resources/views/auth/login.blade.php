@@ -5,138 +5,153 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Linkskuy - Login</title>
-
-  <!-- favicon -->
-  <link rel="shortcut icon" href="{{ asset('linkskuy') }}/assets/images/logo.ico" type="image/x-icon">
-
-  <!-- custom css link -->
-  <link rel="stylesheet" href="{{ asset('linkskuy') }}/assets/css/style.css">
-  <link rel="stylesheet" href="{{ asset('linkskuy') }}/assets/css/authstyle.css">
-  
+  <title>Login | StarterKit-v2</title>
+  <link rel="icon" href="{{ asset('admin') }}/assets/images/favicon.svg" type="image/x-icon">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&display=swap" id="main-font-link">
+  <link rel="stylesheet" href="{{ asset('admin') }}/assets/fonts/tabler-icons.min.css">
+  <link rel="stylesheet" href="{{ asset('admin') }}/assets/fonts/feather.css">
+  <link rel="stylesheet" href="{{ asset('admin') }}/assets/fonts/fontawesome.css">
+  <link rel="stylesheet" href="{{ asset('admin') }}/assets/fonts/material.css">
+  <link rel="stylesheet" href="{{ asset('admin') }}/assets/css/style.css" id="main-style-link">
+  <link rel="stylesheet" href="{{ asset('admin') }}/assets/css/style-preset.css">
   <style>
-    .error-message {
-      color: #dc3545;
-      font-size: 0.875rem;
-      margin-top: 5px;
-      display: block;
-    }
-    
-    .is-invalid {
-      border-color: #dc3545 !important;
-    }
-    
-    .alert {
-      margin-bottom: 20px;
-    }
+    .error-message { color: #dc3545; font-size: 0.875rem; margin-top: 5px; display: block; }
+    .is-invalid { border-color: #dc3545 !important; }
+    body { background: linear-gradient(180deg, #f8fafc 0%, #eef2f7 100%); }
+    .auth-header { display: flex; align-items: center; justify-content: center; gap: 10px; }
+    .auth-header img { height: 42px; }
+    .brand-title { font-weight: 700; letter-spacing: 0.2px; }
+    .card.rounded-4 { border-radius: 1rem !important; }
+    .btn[data-password-toggle] { border-left: 0; }
   </style>
-
-  <!-- google font link -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  @include('sweetalert::alert')
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons/5.5.2/dist/ionicons/ionicons.js"></script>
 </head>
 
 <body>
-  <!-- #MAIN -->
-  <main>
-    <!-- Login Container -->
-    <div class="login-container">
-      <!-- Login Form -->
-      <div class="login-form-container">
-        <div class="form-header">
-          <h2 class="form-title">Selamat Datang Kembali!</h2>
-          <p class="form-subtitle">Masuk ke akun Linkskuy Anda</p>
+  <div class="loader-bg">
+    <div class="loader-track">
+      <div class="loader-fill"></div>
+    </div>
+  </div>
+
+  <div class="auth-main">
+    <div class="auth-wrapper v3">
+      <div class="auth-form">
+        <div class="auth-header">
+          <a href="#" class="d-inline-flex align-items-center text-decoration-none">
+            <img src="{{ asset('env') }}/logo_text.png" alt="StarterKit-v2">
+            <span class="ms-2 h5 mb-0 brand-title text-dark">StarterKit-v2</span>
+          </a>
         </div>
+        <div class="card my-5 shadow-lg border-0 rounded-4">
+          <div class="card-body p-4 p-md-5">
+            <div class="mb-4">
+              <h3 class="mb-0 text-center"><b>Masuk</b></h3>
+            </div>
+            <div class="text-center mb-4">
+              <a href="{{ route('register') }}" class="link-primary">Belum punya akun?</a>
+            </div>
 
-        <!-- Google Login Button -->
-        <a href="{{ route('google.login') }}" class="button-custom-shine"
-          style="padding: 8px 18px; background-color: #ffffff; color: #000000; border-radius: 6px; border: 2px solid #222; font-size: 1rem; font-family: inherit; cursor: pointer; font-weight: 600; box-shadow: 0 2px 8px rgba(0,0,0,0.07); transition: background 0.2s, color 0.2s, box-shadow 0.2s; display: flex; justify-content: center; align-items: center; text-align: center; width: 100%; margin-bottom: 20px;">
-          <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google" class="google-icon">
-          Masuk dengan Google
-        </a>
+            @if ($errors->any())
+              <div class="alert alert-danger" role="alert">
+                <ul class="mb-0 ps-3">
+                  @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                  @endforeach
+                </ul>
+              </div>
+            @endif
 
-        <!-- Divider -->
-        <div class="divider">
-          <span>atau</span>
+            <div class="d-grid gap-2 mb-3">
+              <a href="{{ route('google.login') }}" class="btn btn-light-primary bg-light text-muted">
+                <img src="{{ asset('admin') }}/assets/images/authentication/google.svg" alt="img"> <span class="d-none d-sm-inline-block"> Masuk dengan Google</span>
+              </a>
+            </div>
+
+            <form method="POST" action="{{ route('login') }}">
+              @csrf
+              <div class="mb-3">
+                <label for="username" class="form-label">Username atau Email</label>
+                <input type="text" id="username" name="username" value="{{ old('username') }}" class="form-control @error('username') is-invalid @enderror" placeholder="Masukkan username atau email" required>
+                @error('username')
+                  <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+              </div>
+              <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <div class="input-group">
+                  <input type="password" id="password" name="password" class="form-control border-end-0 @error('password') is-invalid @enderror" placeholder="Masukkan password" required>
+                  <button type="button" class="btn btn-outline-secondary border-start-0" data-password-toggle aria-label="Tampilkan password" aria-pressed="false">
+                    <ion-icon name="eye-outline"></ion-icon>
+                  </button>
+                  @error('password')
+                    <div class="invalid-feedback d-block">{{ $message }}</div>
+                  @enderror
+                </div>
+              </div>
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <div class="form-check">
+                  <input class="form-check-input input-primary" type="checkbox" id="remember-me" name="remember-me">
+                  <label class="form-check-label" for="remember-me">Ingat saya</label>
+                </div>
+                <a href="{{ route('forgot-password') }}" class="text-secondary">Lupa password?</a>
+              </div>
+              <div class="d-grid mt-2">
+                <button type="submit" class="btn btn-primary">Masuk</button>
+              </div>
+            </form>
+          </div>
         </div>
-
-        <form method="POST" action="{{ route('login') }}" class="login-form">
-          @csrf
-          
-          @if ($errors->any())
-            <div class="alert alert-danger" style="background-color: #fee; border: 1px solid #fcc; color: #c33; padding: 10px; border-radius: 5px; margin-bottom: 20px;">
-              <ul style="margin: 0; padding-left: 20px;">
-                @foreach ($errors->all() as $error)
-                  <li>{{ $error }}</li>
-                @endforeach
-              </ul>
-            </div>
-          @endif
-          
-          <!-- Username Field -->
-          <div class="form-group">
-            <label for="username" class="form-label">
-              <ion-icon name="person-outline"></ion-icon>
-              Username atau Email
-            </label>
-            <input type="text" id="username" name="username" class="form-input @error('username') is-invalid @enderror"
-              placeholder="Masukkan username atau email" value="{{ old('username') }}" required>
-            @error('username')
-              <small class="error-message">{{ $message }}</small>
-            @enderror
+        <div class="auth-footer row align-items-center">
+          <div class="col my-1">
+            <p class="m-0">&copy; {{ date('Y') }} <span class="fw-semibold">StarterKit-v2</span></p>
           </div>
-
-          <!-- Password Field -->
-          <div class="form-group">
-            <label for="password" class="form-label">
-              <ion-icon name="lock-closed-outline"></ion-icon>
-              Password
-            </label>
-            <div class="password-input-group">
-              <input type="password" id="password" name="password" class="form-input @error('password') is-invalid @enderror" placeholder="Masukkan password"
-                required>
-              <button type="button" class="password-toggle" data-password-toggle
-                aria-label="Toggle password visibility">
-                <ion-icon name="eye-outline"></ion-icon>
-              </button>
-            </div>
-            @error('password')
-              <small class="error-message">{{ $message }}</small>
-            @enderror
+          <div class="col-auto my-1">
+            <ul class="list-inline footer-link mb-0">
+              <li class="list-inline-item"><a href="{{ url('/') }}">Home</a></li>
+              <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
+              <li class="list-inline-item"><a href="#">Contact</a></li>
+            </ul>
           </div>
-
-          <!-- Remember Me & Forgot Password -->
-          <div class="form-options">
-            <label class="checkbox-container">
-              <input type="checkbox" id="remember-me" name="remember-me">
-              <span class="checkmark"></span>
-              Ingat saya
-            </label>
-            <a href="{{ route('forgot-password') }}" class="forgot-password">Lupa password?</a>
-          </div>
-
-          <!-- Login Button -->
-          <button type="submit" class="button-custom-shine"
-            style="padding: 8px 18px; background-color: #22c44d; color: #fff; border-radius: 6px; border: 2px solid #222; font-size: 1rem; font-family: inherit; cursor: pointer; font-weight: 600; box-shadow: 0 2px 8px rgba(0,0,0,0.07); transition: background 0.2s, color 0.2s, box-shadow 0.2s; display: flex; justify-content: center; align-items: center; text-align: center; width: 100%;">
-            Masuk
-          </button>
-
-          <!-- Register Link -->
-          <div class="register-section">
-            <p>Belum punya akun? <a href="{{ route('register') }}" class="register-link">Daftar sekarang</a></p>
-          </div>
-        </form>
+        </div>
       </div>
     </div>
-  </main>
-
-  <!-- custom js link -->
-  <script src="{{ asset('linkskuy') }}/assets/js/auth.js"></script>
+  </div>
   @include('sweetalert::alert')
-  <!-- ionicon link -->
-  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-  <script nomodule src="https://unpkg.com/ionicons/5.5.2/dist/ionicons/ionicons.js"></script>
+
+  <script src="{{ asset('admin') }}/assets/js/plugins/popper.min.js"></script>
+  <script src="{{ asset('admin') }}/assets/js/plugins/simplebar.min.js"></script>
+  <script src="{{ asset('admin') }}/assets/js/plugins/bootstrap.min.js"></script>
+  <script src="{{ asset('admin') }}/assets/js/fonts/custom-font.js"></script>
+  <script src="{{ asset('admin') }}/assets/js/pcoded.js"></script>
+  <script src="{{ asset('admin') }}/assets/js/plugins/feather.min.js"></script>
+  <script>layout_change('light');</script>
+  <script>change_box_container('false');</script>
+  <script>layout_rtl_change('false');</script>
+  <script>preset_change("preset-1");</script>
+  <script>font_change("Public-Sans");</script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const toggleBtn = document.querySelector('[data-password-toggle]');
+      const passwordInput = document.getElementById('password');
+      if (!toggleBtn || !passwordInput) return;
+
+      toggleBtn.addEventListener('click', function () {
+        const isHidden = passwordInput.getAttribute('type') === 'password';
+        passwordInput.setAttribute('type', isHidden ? 'text' : 'password');
+
+        const icon = toggleBtn.querySelector('ion-icon');
+        if (icon) {
+          icon.setAttribute('name', isHidden ? 'eye-off-outline' : 'eye-outline');
+        }
+
+        toggleBtn.setAttribute('aria-pressed', String(isHidden));
+        toggleBtn.setAttribute('aria-label', isHidden ? 'Sembunyikan password' : 'Tampilkan password');
+      });
+    });
+  </script>
 </body>
 
 </html>

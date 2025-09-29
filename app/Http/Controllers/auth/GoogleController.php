@@ -48,7 +48,7 @@ class GoogleController extends Controller
                 if ($user->role == 'superadmin') {
                     return redirect()->route('dashboard-superadmin');
                 } else {
-                    return redirect('/editor');
+                    return redirect('/');
                 }
             }
 
@@ -135,7 +135,7 @@ class GoogleController extends Controller
             Auth::login($user);
 
             Alert::success('Akun berhasil dibuat lewat Google!', 'Selamat datang di Linkskuy!');
-            return redirect('/editor');
+            return redirect('/');
             
         } catch (\Exception $e) {
             Alert::error('Gagal menyelesaikan pendaftaran', 'Terjadi kesalahan. Silakan coba lagi.');
