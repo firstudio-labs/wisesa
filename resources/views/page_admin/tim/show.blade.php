@@ -39,7 +39,7 @@
               <div class="row">
                 <div class="col-md-4">
                   @if ($tim->gambar)
-                    <img src="{{ asset('storage/tim/' . $tim->gambar) }}" alt="Gambar {{ $tim->nama }}" class="img-fluid rounded mb-3">
+                    <img src="{{ asset('upload/tim/' . $tim->gambar) }}" alt="Gambar {{ $tim->nama }}" class="img-fluid rounded mb-3">
                   @else
                     <div class="bg-light rounded p-5 text-center mb-3">
                       <i class="fa fa-user" style="font-size: 5rem;"></i>

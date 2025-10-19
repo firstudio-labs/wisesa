@@ -68,7 +68,7 @@
                       @if ($tim->gambar)
                         <div class="mt-2">
                           <label class="form-label">Gambar Saat Ini</label>
-                          <img src="{{ asset('storage/tim/' . $tim->gambar) }}" alt="Gambar {{ $tim->nama }}" class="img-thumbnail" style="max-height: 200px;">
+                          <img src="{{ asset('upload/tim/' . $tim->gambar) }}" alt="Gambar {{ $tim->nama }}" class="img-thumbnail" style="max-height: 200px;">
                         </div>
                       @endif
                     </div>

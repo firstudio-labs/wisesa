@@ -39,7 +39,7 @@
               <div class="row">
                 <div class="col-md-4">
                   @if ($testimoni->gambar)
-                    <img src="{{ asset('storage/testimoni/' . $testimoni->gambar) }}" alt="Gambar {{ $testimoni->nama }}" class="img-fluid rounded">
+                    <img src="{{ asset('upload/testimoni/' . $testimoni->gambar) }}" alt="Gambar {{ $testimoni->nama }}" class="img-fluid rounded">
                   @else
                     <div class="bg-light rounded p-5 text-center">
                       <i class="bx bx-user" style="font-size: 5rem;"></i>

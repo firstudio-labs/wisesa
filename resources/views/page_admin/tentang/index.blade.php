@@ -71,7 +71,7 @@
                         <td>{{ $e+1 }}</td>
                         <td>
                           @if ($item->gambar)
-                            <img src="{{ asset('storage/tentang/' . $item->gambar) }}" alt="Gambar {{ $item->judul }}" class="img-thumbnail" style="max-height: 100px;">
+                            <img src="{{ asset('upload/tentang/' . $item->gambar) }}" alt="Gambar {{ $item->judul }}" class="img-thumbnail" style="max-height: 100px;">
                           @else
                             <div class="bg-light rounded p-2">
                               <i class="bx bx-image" style="font-size: 2rem;"></i>
@@ -97,7 +97,7 @@
                         <td>{{ $item->keterangan_memilih }}</td>
                         <td>
                           @if ($item->gambar_nilai)
-                            <img src="{{ asset('storage/tentang/' . $item->gambar_nilai) }}" alt="Gambar Nilai" class="img-thumbnail" style="max-height: 100px;">
+                            <img src="{{ asset('upload/tentang/' . $item->gambar_nilai) }}" alt="Gambar Nilai" class="img-thumbnail" style="max-height: 100px;">
                           @else
                             <div class="bg-light rounded p-2">
                               <i class="bx bx-image" style="font-size: 2rem;"></i>

@@ -56,9 +56,9 @@ class BerandaController extends Controller
                 $gambar_utama_name = time() . '_utama.webp';
 
                 // Pastikan direktori ada
-                $path = public_path('storage/beranda');
+                $path = public_path('upload/beranda');
                 if (!file_exists($path)) {
-                    Log::info('Membuat direktori storage/beranda');
+                    Log::info('Membuat direktori upload/beranda');
                     mkdir($path, 0777, true);
                 }
 
@@ -78,9 +78,9 @@ class BerandaController extends Controller
                 $gambar_sekunder_name = time() . '_sekunder.webp';
 
                 // Pastikan direktori ada
-                $path = public_path('storage/beranda');
+                $path = public_path('upload/beranda');
                 if (!file_exists($path)) {
-                    Log::info('Membuat direktori storage/beranda');
+                    Log::info('Membuat direktori upload/beranda');
                     mkdir($path, 0777, true);
                 }
 
@@ -146,15 +146,15 @@ class BerandaController extends Controller
             // Proses gambar utama
             if ($request->hasFile('gambar_utama')) {
                 // Hapus gambar lama jika ada
-                if ($beranda->gambar_utama && file_exists(public_path('storage/beranda/' . $beranda->gambar_utama))) {
-                    unlink(public_path('storage/beranda/' . $beranda->gambar_utama));
+                if ($beranda->gambar_utama && file_exists(public_path('upload/beranda/' . $beranda->gambar_utama))) {
+                    unlink(public_path('upload/beranda/' . $beranda->gambar_utama));
                 }
 
                 $gambar_utama = $request->file('gambar_utama');
                 $gambar_utama_name = time() . '_utama.webp';
 
                 // Pastikan direktori ada
-                $path = public_path('storage/beranda');
+                $path = public_path('upload/beranda');
                 if (!file_exists($path)) {
                     mkdir($path, 0777, true);
                 }
@@ -171,15 +171,15 @@ class BerandaController extends Controller
             // Proses gambar sekunder
             if ($request->hasFile('gambar_sekunder')) {
                 // Hapus gambar lama jika ada
-                if ($beranda->gambar_sekunder && file_exists(public_path('storage/beranda/' . $beranda->gambar_sekunder))) {
-                    unlink(public_path('storage/beranda/' . $beranda->gambar_sekunder));
+                if ($beranda->gambar_sekunder && file_exists(public_path('upload/beranda/' . $beranda->gambar_sekunder))) {
+                    unlink(public_path('upload/beranda/' . $beranda->gambar_sekunder));
                 }
 
                 $gambar_sekunder = $request->file('gambar_sekunder');
                 $gambar_sekunder_name = time() . '_sekunder.webp';
 
                 // Pastikan direktori ada
-                $path = public_path('storage/beranda');
+                $path = public_path('upload/beranda');
                 if (!file_exists($path)) {
                     mkdir($path, 0777, true);
                 }
@@ -209,11 +209,11 @@ class BerandaController extends Controller
     {
         try {
             // Hapus file gambar
-            if ($beranda->gambar_utama && file_exists(public_path('storage/beranda/' . $beranda->gambar_utama))) {
-                unlink(public_path('storage/beranda/' . $beranda->gambar_utama));
+            if ($beranda->gambar_utama && file_exists(public_path('upload/beranda/' . $beranda->gambar_utama))) {
+                unlink(public_path('upload/beranda/' . $beranda->gambar_utama));
             }
-            if ($beranda->gambar_sekunder && file_exists(public_path('storage/beranda/' . $beranda->gambar_sekunder))) {
-                unlink(public_path('storage/beranda/' . $beranda->gambar_sekunder));
+            if ($beranda->gambar_sekunder && file_exists(public_path('upload/beranda/' . $beranda->gambar_sekunder))) {
+                unlink(public_path('upload/beranda/' . $beranda->gambar_sekunder));
             }
 
             $beranda->delete();

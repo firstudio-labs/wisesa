@@ -68,7 +68,7 @@
                       <td>{{ $e+1 }}</td>
                       <td>
                         @if ($beranda->gambar_utama)
-                          <img src="{{ asset('storage/beranda/' . $beranda->gambar_utama) }}" alt="Gambar Utama" class="img-thumbnail" style="max-height: 100px;">
+                          <img src="{{ asset('upload/beranda/' . $beranda->gambar_utama) }}" alt="Gambar Utama" class="img-thumbnail" style="max-height: 100px;">
                         @else
                           <div class="bg-light rounded p-2">
                             <i class="bx bx-image" style="font-size: 2rem;"></i>
@@ -79,7 +79,7 @@
                       <td>{{ $beranda->slogan }}</td>
                       <td>
                         @if ($beranda->gambar_sekunder)
-                          <img src="{{ asset('storage/beranda/' . $beranda->gambar_sekunder) }}" alt="Gambar Sekunder" class="img-thumbnail" style="max-height: 100px;">
+                          <img src="{{ asset('upload/beranda/' . $beranda->gambar_sekunder) }}" alt="Gambar Sekunder" class="img-thumbnail" style="max-height: 100px;">
                         @else
                           <div class="bg-light rounded p-2">
                             <i class="bx bx-image" style="font-size: 2rem;"></i>

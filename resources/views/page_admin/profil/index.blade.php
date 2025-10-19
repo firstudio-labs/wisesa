@@ -70,7 +70,7 @@
                       <td>{{ $profil->nama_perusahaan }}</td>
                       <td>{{ $profil->no_telp_perusahaan }}</td>
                       <td>
-                        <img src="{{ asset('storage/profil/' . $profil->logo_perusahaan) }}" alt="Logo Perusahaan" class="img-fluid" style="max-width: 100px;">
+                        <img src="{{ asset('upload/profil/' . $profil->logo_perusahaan) }}" alt="Logo Perusahaan" class="img-fluid" style="max-width: 100px;">
                       </td>
                       <td>{{ $profil->email_perusahaan }}</td>
                       <td>{{ $profil->alamat_perusahaan }}</td>

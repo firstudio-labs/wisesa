@@ -60,9 +60,9 @@ class GaleriController extends Controller
                 $gambarName = time() . '.webp';
 
                 // Pastikan direktori ada
-                $path = public_path('storage/galeri');
+                $path = public_path('upload/galeri');
                 if (!file_exists($path)) {
-                    Log::info('Membuat direktori storage/galeri');
+                    Log::info('Membuat direktori upload/galeri');
                     mkdir($path, 0777, true);
                 }
 
@@ -134,15 +134,15 @@ class GaleriController extends Controller
 
             if ($request->hasFile('gambar')) {
                 // Hapus gambar lama jika ada
-                if ($galeri->gambar && file_exists(public_path('storage/galeri/' . $galeri->gambar))) {
-                    unlink(public_path('storage/galeri/' . $galeri->gambar));
+                if ($galeri->gambar && file_exists(public_path('upload/galeri/' . $galeri->gambar))) {
+                    unlink(public_path('upload/galeri/' . $galeri->gambar));
                 }
 
                 $gambar = $request->file('gambar');
                 $gambarName = time() . '.webp';
 
                 // Pastikan direktori ada
-                $path = public_path('storage/galeri');
+                $path = public_path('upload/galeri');
                 if (!file_exists($path)) {
                     mkdir($path, 0777, true);
                 }
@@ -173,8 +173,8 @@ class GaleriController extends Controller
     public function destroy(Galeri $galeri)
     {
         try {
-            if ($galeri->gambar && file_exists(public_path('storage/galeri/' . $galeri->gambar))) {
-                unlink(public_path('storage/galeri/' . $galeri->gambar));
+            if ($galeri->gambar && file_exists(public_path('upload/galeri/' . $galeri->gambar))) {
+                unlink(public_path('upload/galeri/' . $galeri->gambar));
             }
             $galeri->delete();
             Alert::toast('Galeri berhasil dihapus', 'success')->position('top-end');

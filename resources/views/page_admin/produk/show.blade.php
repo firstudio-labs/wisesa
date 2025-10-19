@@ -47,7 +47,7 @@
                             <div class="col-lg-4 col-md-5 mb-4">
                                 <div class="text-center">
                                     <div class="position-relative d-inline-block">
-                                        <img src="{{ asset('storage/produk/' . $produk->gambar) }}" 
+                                        <img src="{{ asset('upload/produk/' . $produk->gambar) }}" 
                                              alt="{{ $produk->judul }}"
                                              class="img-fluid rounded shadow-lg" 
                                              style="max-width: 100%; height: 300px; object-fit: cover; border: 3px solid #e9ecef;">

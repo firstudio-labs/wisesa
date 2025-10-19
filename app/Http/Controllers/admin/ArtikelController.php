@@ -70,9 +70,9 @@ class ArtikelController extends Controller
                 $gambarName = time() . '.webp';
 
                 // Pastikan direktori ada
-                $path = public_path('storage/artikel');
+                $path = public_path('upload/artikel');
                 if (!file_exists($path)) {
-                    Log::info('Membuat direktori storage/artikel');
+                    Log::info('Membuat direktori upload/artikel');
                     mkdir($path, 0777, true);
                 }
 
@@ -146,15 +146,15 @@ class ArtikelController extends Controller
 
             if ($request->hasFile('gambar')) {
                 // Hapus gambar lama jika ada
-                if ($artikel->gambar && file_exists(public_path('storage/artikel/' . $artikel->gambar))) {
-                    unlink(public_path('storage/artikel/' . $artikel->gambar));
+                if ($artikel->gambar && file_exists(public_path('upload/artikel/' . $artikel->gambar))) {
+                    unlink(public_path('upload/artikel/' . $artikel->gambar));
                 }
 
                 $gambar = $request->file('gambar');
                 $gambarName = time() . '.webp';
 
                 // Pastikan direktori ada
-                $path = public_path('storage/artikel');
+                $path = public_path('upload/artikel');
                 if (!file_exists($path)) {
                     mkdir($path, 0777, true);
                 }
@@ -183,6 +183,11 @@ class ArtikelController extends Controller
      */
     public function destroy(Artikel $artikel)
     {
+        // Hapus file gambar jika ada
+        if ($artikel->gambar && file_exists(public_path('upload/artikel/' . $artikel->gambar))) {
+            unlink(public_path('upload/artikel/' . $artikel->gambar));
+        }
+        
         $artikel->delete();
         Alert::toast('Artikel berhasil dihapus', 'success')->position('top-end');
         return redirect()->route('artikel.index');

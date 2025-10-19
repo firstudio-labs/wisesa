@@ -41,7 +41,7 @@
                   <div class="mb-4">
                     <h6 class="fw-bold">Gambar Utama</h6>
                     @if ($beranda->gambar_utama)
-                      <img src="{{ asset('storage/beranda/' . $beranda->gambar_utama) }}" alt="Gambar Utama" class="img-fluid rounded" style="max-height: 300px;">
+                      <img src="{{ asset('upload/beranda/' . $beranda->gambar_utama) }}" alt="Gambar Utama" class="img-fluid rounded" style="max-height: 300px;">
                     @else
                       <div class="bg-light rounded p-4 text-center">
                         <i class="bx bx-image" style="font-size: 3rem;"></i>
@@ -54,7 +54,7 @@
                   <div class="mb-4">
                     <h6 class="fw-bold">Gambar Sekunder</h6>
                     @if ($beranda->gambar_sekunder)
-                      <img src="{{ asset('storage/beranda/' . $beranda->gambar_sekunder) }}" alt="Gambar Sekunder" class="img-fluid rounded" style="max-height: 300px;">
+                      <img src="{{ asset('upload/beranda/' . $beranda->gambar_sekunder) }}" alt="Gambar Sekunder" class="img-fluid rounded" style="max-height: 300px;">
                     @else
                       <div class="bg-light rounded p-4 text-center">
                         <i class="bx bx-image" style="font-size: 3rem;"></i>

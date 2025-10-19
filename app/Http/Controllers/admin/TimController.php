@@ -68,9 +68,9 @@ class TimController extends Controller
                 $gambarName = time() . '.webp';
 
                 // Pastikan direktori ada
-                $path = public_path('storage/tim');
+                $path = public_path('upload/tim');
                 if (!file_exists($path)) {
-                    Log::info('Membuat direktori storage/tim');
+                    Log::info('Membuat direktori upload/tim');
                     mkdir($path, 0777, true);
                 }
 
@@ -145,15 +145,15 @@ class TimController extends Controller
 
             if ($request->hasFile('gambar')) {
                 // Hapus gambar lama jika ada
-                if ($tim->gambar && file_exists(public_path('storage/tim/' . $tim->gambar))) {
-                    unlink(public_path('storage/tim/' . $tim->gambar));
+                if ($tim->gambar && file_exists(public_path('upload/tim/' . $tim->gambar))) {
+                    unlink(public_path('upload/tim/' . $tim->gambar));
                 }
 
                 $gambar = $request->file('gambar');
                 $gambarName = time() . '.webp';
 
                 // Pastikan direktori ada
-                $path = public_path('storage/tim');
+                $path = public_path('upload/tim');
                 if (!file_exists($path)) {
                     mkdir($path, 0777, true);
                 }
@@ -184,8 +184,8 @@ class TimController extends Controller
     {
         try {
             // Hapus gambar jika ada
-            if ($tim->gambar && file_exists(public_path('storage/tim/' . $tim->gambar))) {
-                unlink(public_path('storage/tim/' . $tim->gambar));
+            if ($tim->gambar && file_exists(public_path('upload/tim/' . $tim->gambar))) {
+                unlink(public_path('upload/tim/' . $tim->gambar));
             }
 
             $tim->delete();

@@ -49,7 +49,7 @@
                 <!-- Logo dan Info Utama -->
                 <div class="col-md-4 text-center mb-4">
                   <div class="border rounded p-3 bg-light">
-                    <img src="{{ asset('storage/profil/' . $profil->logo_perusahaan) }}" 
+                    <img src="{{ asset('upload/profil/' . $profil->logo_perusahaan) }}" 
                          alt="Logo Perusahaan" 
                          class="img-fluid rounded" 
                          style="max-width: 150px; max-height: 150px; object-fit: contain;">

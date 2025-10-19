@@ -79,7 +79,7 @@
                       @enderror
                       @if ($beranda->gambar_utama)
                         <div class="mt-2">
-                          <img src="{{ asset('storage/beranda/' . $beranda->gambar_utama) }}" alt="Gambar Utama" class="img-thumbnail" style="max-height: 200px;">
+                          <img src="{{ asset('upload/beranda/' . $beranda->gambar_utama) }}" alt="Gambar Utama" class="img-thumbnail" style="max-height: 200px;">
                         </div>
                       @endif
                     </div>
@@ -94,7 +94,7 @@
                       @enderror
                       @if ($beranda->gambar_sekunder)
                         <div class="mt-2">
-                          <img src="{{ asset('storage/beranda/' . $beranda->gambar_sekunder) }}" alt="Gambar Sekunder" class="img-thumbnail" style="max-height: 200px;">
+                          <img src="{{ asset('upload/beranda/' . $beranda->gambar_sekunder) }}" alt="Gambar Sekunder" class="img-thumbnail" style="max-height: 200px;">
                         </div>
                       @endif
                     </div>

@@ -74,7 +74,7 @@
                   @if ($galeri->gambar)
                     <div class="mt-2">
                       <label class="form-label">Gambar Saat Ini</label>
-                      <img src="{{ asset('storage/galeri/' . $galeri->gambar) }}" alt="Gambar {{ $galeri->keterangan }}" class="img-thumbnail" style="max-height: 200px;">
+                      <img src="{{ asset('upload/galeri/' . $galeri->gambar) }}" alt="Gambar {{ $galeri->keterangan }}" class="img-thumbnail" style="max-height: 200px;">
                     </div>
                   @endif
                 </div>

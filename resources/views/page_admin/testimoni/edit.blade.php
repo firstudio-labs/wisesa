@@ -52,7 +52,7 @@
                   @if ($testimoni->gambar)
                     <div class="mt-2">
                       <label class="form-label">Gambar Saat Ini</label>
-                      <img src="{{ asset('storage/testimoni/' . $testimoni->gambar) }}" alt="Gambar {{ $testimoni->nama }}" class="img-thumbnail" style="max-height: 200px;">
+                      <img src="{{ asset('upload/testimoni/' . $testimoni->gambar) }}" alt="Gambar {{ $testimoni->nama }}" class="img-thumbnail" style="max-height: 200px;">
                     </div>
                   @endif
                 </div>

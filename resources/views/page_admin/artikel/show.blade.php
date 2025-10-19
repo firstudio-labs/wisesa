@@ -60,7 +60,7 @@
                             @if($artikel->gambar)
                                 <div class="article-image-container mb-4">
                                     <div class="image-wrapper">
-                                        <img src="{{ asset('storage/artikel/' . $artikel->gambar) }}" alt="{{ $artikel->judul }}" class="article-image" />
+                                        <img src="{{ asset('upload/artikel/' . $artikel->gambar) }}" alt="{{ $artikel->judul }}" class="article-image" />
                                         <div class="image-overlay">
                                             <i class="fas fa-image"></i>
                                         </div>

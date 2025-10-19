@@ -110,7 +110,7 @@
                       <label class="form-label">Logo Perusahaan</label>
                       @if($profil->logo_perusahaan)
                         <div class="mb-2">
-                          <img src="{{ asset('storage/profil/' . $profil->logo_perusahaan) }}" alt="Logo Perusahaan Saat Ini" class="img-fluid rounded" style="max-width: 150px; max-height: 150px; object-fit: contain;">
+                          <img src="{{ asset('upload/profil/' . $profil->logo_perusahaan) }}" alt="Logo Perusahaan Saat Ini" class="img-fluid rounded" style="max-width: 150px; max-height: 150px; object-fit: contain;">
                           <br>
                           <small class="text-muted">Logo saat ini</small>
                         </div>

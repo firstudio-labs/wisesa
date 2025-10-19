@@ -67,9 +67,9 @@ class TentangController extends Controller
                 $gambarName = time() . '_gambar.webp';
 
                 // Pastikan direktori ada
-                $path = public_path('storage/tentang');
+                $path = public_path('upload/tentang');
                 if (!file_exists($path)) {
-                    Log::info('Membuat direktori storage/tentang');
+                    Log::info('Membuat direktori upload/tentang');
                     mkdir($path, 0777, true);
                 }
 
@@ -88,9 +88,9 @@ class TentangController extends Controller
                 $gambarNilaiName = time() . '_nilai.webp';
 
                 // Pastikan direktori ada
-                $path = public_path('storage/tentang');
+                $path = public_path('upload/tentang');
                 if (!file_exists($path)) {
-                    Log::info('Membuat direktori storage/tentang');
+                    Log::info('Membuat direktori upload/tentang');
                     mkdir($path, 0777, true);
                 }
 
@@ -166,15 +166,15 @@ class TentangController extends Controller
 
             if ($request->hasFile('gambar')) {
                 // Hapus gambar lama jika ada
-                if ($tentang->gambar && file_exists(public_path('storage/tentang/' . $tentang->gambar))) {
-                    unlink(public_path('storage/tentang/' . $tentang->gambar));
+                if ($tentang->gambar && file_exists(public_path('upload/tentang/' . $tentang->gambar))) {
+                    unlink(public_path('upload/tentang/' . $tentang->gambar));
                 }
 
                 $gambar = $request->file('gambar');
                 $gambarName = time() . '_gambar.webp';
 
                 // Pastikan direktori ada
-                $path = public_path('storage/tentang');
+                $path = public_path('upload/tentang');
                 if (!file_exists($path)) {
                     mkdir($path, 0777, true);
                 }
@@ -190,15 +190,15 @@ class TentangController extends Controller
 
             if ($request->hasFile('gambar_nilai')) {
                 // Hapus gambar nilai lama jika ada
-                if ($tentang->gambar_nilai && file_exists(public_path('storage/tentang/' . $tentang->gambar_nilai))) {
-                    unlink(public_path('storage/tentang/' . $tentang->gambar_nilai));
+                if ($tentang->gambar_nilai && file_exists(public_path('upload/tentang/' . $tentang->gambar_nilai))) {
+                    unlink(public_path('upload/tentang/' . $tentang->gambar_nilai));
                 }
 
                 $gambarNilai = $request->file('gambar_nilai');
                 $gambarNilaiName = time() . '_nilai.webp';
 
                 // Pastikan direktori ada
-                $path = public_path('storage/tentang');
+                $path = public_path('upload/tentang');
                 if (!file_exists($path)) {
                     mkdir($path, 0777, true);
                 }
@@ -229,13 +229,13 @@ class TentangController extends Controller
     {
         try {
             // Hapus gambar jika ada
-            if ($tentang->gambar && file_exists(public_path('storage/tentang/' . $tentang->gambar))) {
-                unlink(public_path('storage/tentang/' . $tentang->gambar));
+            if ($tentang->gambar && file_exists(public_path('upload/tentang/' . $tentang->gambar))) {
+                unlink(public_path('upload/tentang/' . $tentang->gambar));
             }
 
             // Hapus gambar nilai jika ada
-            if ($tentang->gambar_nilai && file_exists(public_path('storage/tentang/' . $tentang->gambar_nilai))) {
-                unlink(public_path('storage/tentang/' . $tentang->gambar_nilai));
+            if ($tentang->gambar_nilai && file_exists(public_path('upload/tentang/' . $tentang->gambar_nilai))) {
+                unlink(public_path('upload/tentang/' . $tentang->gambar_nilai));
             }
 
             $tentang->delete();

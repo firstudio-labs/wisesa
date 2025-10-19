@@ -67,7 +67,7 @@
                       <td>{{ $e+1 }}</td>
                       <td>
                         @if ($t->gambar)
-                          <img src="{{ asset('storage/tim/' . $t->gambar) }}" alt="Gambar {{ $t->nama }}" class="img-thumbnail" style="max-height: 100px; width: auto;">
+                          <img src="{{ asset('upload/tim/' . $t->gambar) }}" alt="Gambar {{ $t->nama }}" class="img-thumbnail" style="max-height: 100px; width: auto;">
                         @else
                           <div class="bg-light rounded p-2">
                                 <i class="fa fa-user" style="font-size: 2rem;"></i>

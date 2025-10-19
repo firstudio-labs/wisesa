@@ -51,7 +51,7 @@
                       <td>{{ $index + 1 }}</td>
                       <td>
                         @if ($produk->gambar)
-                          <img src="{{ asset('storage/produk/' . $produk->gambar) }}" alt="{{ $produk->judul }}" class="img-thumbnail" style="max-width: 100px; height: auto;">
+                          <img src="{{ asset('upload/produk/' . $produk->gambar) }}" alt="{{ $produk->judul }}" class="img-thumbnail" style="max-width: 100px; height: auto;">
                         @else
                           <div class="bg-light rounded p-2 text-center"><i class="bx bx-image" style="font-size: 2rem;"></i></div>
                         @endif

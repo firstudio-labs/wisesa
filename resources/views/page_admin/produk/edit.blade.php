@@ -71,7 +71,7 @@
                   @enderror
                   @if($produk->gambar)
                     <div class="mt-2">
-                      <img src="{{ asset('storage/produk/' . $produk->gambar) }}" alt="{{ $produk->judul }}" class="img-thumbnail" style="max-width: 200px; height: auto;">
+                      <img src="{{ asset('upload/produk/' . $produk->gambar) }}" alt="{{ $produk->judul }}" class="img-thumbnail" style="max-width: 200px; height: auto;">
                     </div>
                   @endif
                 </div>

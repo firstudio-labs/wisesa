@@ -62,9 +62,9 @@ class TestimoniController extends Controller
                 $gambarName = time() . '.webp';
 
                 // Pastikan direktori ada
-                $path = public_path('storage/testimoni');
+                $path = public_path('upload/testimoni');
                 if (!file_exists($path)) {
-                    Log::info('Membuat direktori storage/testimoni');
+                    Log::info('Membuat direktori upload/testimoni');
                     mkdir($path, 0777, true);
                 }
 
@@ -133,15 +133,15 @@ class TestimoniController extends Controller
 
             if ($request->hasFile('gambar')) {
                 // Hapus gambar lama jika ada
-                if ($testimoni->gambar && file_exists(public_path('storage/testimoni/' . $testimoni->gambar))) {
-                    unlink(public_path('storage/testimoni/' . $testimoni->gambar));
+                if ($testimoni->gambar && file_exists(public_path('upload/testimoni/' . $testimoni->gambar))) {
+                    unlink(public_path('upload/testimoni/' . $testimoni->gambar));
                 }
 
                 $gambar = $request->file('gambar');
                 $gambarName = time() . '.webp';
 
                 // Pastikan direktori ada
-                $path = public_path('storage/testimoni');
+                $path = public_path('upload/testimoni');
                 if (!file_exists($path)) {
                     mkdir($path, 0777, true);
                 }
@@ -172,8 +172,8 @@ class TestimoniController extends Controller
     {
         try {
             // Hapus gambar jika ada
-            if ($testimoni->gambar && file_exists(public_path('storage/testimoni/' . $testimoni->gambar))) {
-                unlink(public_path('storage/testimoni/' . $testimoni->gambar));
+            if ($testimoni->gambar && file_exists(public_path('upload/testimoni/' . $testimoni->gambar))) {
+                unlink(public_path('upload/testimoni/' . $testimoni->gambar));
             }
 
             $testimoni->delete();

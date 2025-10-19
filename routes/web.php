@@ -23,6 +23,7 @@ use App\Http\Controllers\admin\{
     KomentarArtikelController,
     KontakController,
     BerandaController,
+    ProfilAdminController,
 };
 // use App\Http\Controllers\user\{
 
@@ -33,7 +34,14 @@ use App\Http\Controllers\auth\{
     GoogleController,
     ForgotPasswordController,
 };
-
+use App\Http\Controllers\web\{
+    LandingController,
+    AboutController,
+    ServiceController,
+    GalleryController,
+    ContactController,
+    ProfilWebController,
+};
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -77,6 +85,8 @@ Route::post('/forgot-password/reset', [ForgotPasswordController::class, 'resetPa
 
 
 Route::group(['middleware' => ['role:superadmin']], function () {
+    Route::get('/profil-admin', [ProfilAdminController::class, 'index'])->name('profil-admin');
+    Route::put('/profil-admin/update', [ProfilAdminController::class, 'update'])->name('profil-admin.update');
     Route::get('/dashboard-superadmin', [DashboardSuperAdminController::class, 'index'])->name('dashboard-superadmin');
     Route::resource('beranda', BerandaController::class);
     Route::resource('artikel', ArtikelController::class);
@@ -99,3 +109,14 @@ Route::group(['middleware' => ['role:superadmin']], function () {
 Route::group(['middleware' => ['auth']], function () {
   
 });
+
+Route::get('/', [LandingController::class, 'index'])->name('landing');
+Route::get('/about', [AboutController::class, 'index'])->name('about');
+Route::get('/services', [ServiceController::class, 'index'])->name('services');
+Route::get('/services-detail', [ServiceController::class, 'detail'])->name('services-detail');
+Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery');
+Route::get('/gallery-detail', [GalleryController::class, 'detail'])->name('gallery-detail');
+Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+
+Route::get('/profil', [ProfilWebController::class, 'index'])->name('profil');
+Route::put('/profil/update', [ProfilWebController::class, 'update'])->name('profil.update');

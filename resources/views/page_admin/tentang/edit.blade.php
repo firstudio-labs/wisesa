@@ -52,7 +52,7 @@
                   @if ($tentang->gambar)
                     <div class="mt-2">
                       <label class="form-label">Gambar Saat Ini</label>
-                      <img src="{{ asset('storage/tentang/' . $tentang->gambar) }}" alt="Gambar {{ $tentang->judul }}" class="img-thumbnail" style="max-height: 200px;">
+                      <img src="{{ asset('upload/tentang/' . $tentang->gambar) }}" alt="Gambar {{ $tentang->judul }}" class="img-thumbnail" style="max-height: 200px;">
                     </div>
                   @endif
                 </div>
@@ -152,7 +152,7 @@
                   @if ($tentang->gambar_nilai)
                     <div class="mt-2">
                       <label class="form-label">Gambar Nilai Saat Ini</label>
-                      <img src="{{ asset('storage/tentang/' . $tentang->gambar_nilai) }}" alt="Gambar Nilai" class="img-thumbnail" style="max-height: 200px;">
+                      <img src="{{ asset('upload/tentang/' . $tentang->gambar_nilai) }}" alt="Gambar Nilai" class="img-thumbnail" style="max-height: 200px;">
                     </div>
                   @endif
                 </div>

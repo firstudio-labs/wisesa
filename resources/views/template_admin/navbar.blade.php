@@ -1,8 +1,20 @@
 <nav class="pc-sidebar">
     <div class="navbar-wrapper">
         <div class="m-header">
-            <a href="/dashboard-superadmin" class="b-brand text-primary">
-                <img src="{{ asset('env') }}/logo_text.png" alt="Logo" style="height: 50px;">
+            <a href="/dashboard-superadmin" class="b-brand text-primary d-flex align-items-center" style="gap: 10px;">
+                @php
+                    $profil = \App\Models\Profil::first();
+                @endphp
+                @if($profil && $profil->logo_perusahaan)
+                    <img src="{{ asset('upload/profil/' . $profil->logo_perusahaan) }}" alt="Logo" style="height: 50px;">
+                @else
+                    <img src="{{ asset('env/logo.png') }}" alt="Logo" style="height: 50px;">
+                @endif
+                @if($profil && $profil->nama_perusahaan)
+                    <span class="ms-2 h4 mb-0 brand-title text-dark ">{{ $profil->nama_perusahaan }}</span>
+                @else
+                    <span class="ms-2 h4 mb-0 brand-title text-dark ">StarterKit-v2</span>
+                @endif
             </a>
         </div>
         @if (Auth::user()->role == 'superadmin')

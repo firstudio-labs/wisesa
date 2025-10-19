@@ -63,9 +63,9 @@ class ProdukController extends Controller
                 $gambarName = time() . '.webp';
 
                 // Pastikan direktori ada
-                $path = public_path('storage/produk');
+                $path = public_path('upload/produk');
                 if (!file_exists($path)) {
-                    Log::info('Membuat direktori storage/produk');
+                    Log::info('Membuat direktori upload/produk');
                     mkdir($path, 0777, true);
                 }
 
@@ -133,15 +133,15 @@ class ProdukController extends Controller
 
             if ($request->hasFile('gambar')) {
                 // Hapus gambar lama jika ada
-                if ($produk->gambar && file_exists(public_path('storage/produk/' . $produk->gambar))) {
-                    unlink(public_path('storage/produk/' . $produk->gambar));
+                if ($produk->gambar && file_exists(public_path('upload/produk/' . $produk->gambar))) {
+                    unlink(public_path('upload/produk/' . $produk->gambar));
                 }
 
                 $gambar = $request->file('gambar');
                 $gambarName = time() . '.webp';
 
                 // Pastikan direktori ada
-                $path = public_path('storage/produk');
+                $path = public_path('upload/produk');
                 if (!file_exists($path)) {
                     mkdir($path, 0777, true);
                 }
@@ -172,8 +172,8 @@ class ProdukController extends Controller
     {
         try {
             // Hapus gambar jika ada
-            if ($produk->gambar && file_exists(public_path('storage/produk/' . $produk->gambar))) {
-                unlink(public_path('storage/produk/' . $produk->gambar));
+            if ($produk->gambar && file_exists(public_path('upload/produk/' . $produk->gambar))) {
+                unlink(public_path('upload/produk/' . $produk->gambar));
             }
 
             $produk->delete();

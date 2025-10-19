@@ -64,7 +64,7 @@ class ProfilController extends Controller
             if ($request->hasFile('logo_perusahaan')) {
                 $logo = $request->file('logo_perusahaan');
                 $logoName = time() . '.webp';
-                $path = public_path('storage/profil');
+                $path = public_path('upload/profil');
                 if (!file_exists($path)) {
                     mkdir($path, 0777, true);
                 }
@@ -135,12 +135,12 @@ class ProfilController extends Controller
 
             if ($request->hasFile('logo_perusahaan')) {
                 // Hapus logo lama jika ada
-                if ($profil->logo_perusahaan && file_exists(public_path('storage/profil/' . $profil->logo_perusahaan))) {
-                    unlink(public_path('storage/profil/' . $profil->logo_perusahaan));
+                if ($profil->logo_perusahaan && file_exists(public_path('upload/profil/' . $profil->logo_perusahaan))) {
+                    unlink(public_path('upload/profil/' . $profil->logo_perusahaan));
                 }
                 $logo = $request->file('logo_perusahaan');
                 $logoName = time() . '.webp';
-                $path = public_path('storage/profil');
+                $path = public_path('upload/profil');
                 if (!file_exists($path)) {
                     mkdir($path, 0777, true);
                 }
@@ -168,8 +168,8 @@ class ProfilController extends Controller
     {
         try {
             // Hapus gambar jika ada
-            if ($profil->logo_perusahaan && file_exists(public_path('storage/profil/' . $profil->logo_perusahaan))) {
-                unlink(public_path('storage/profil/' . $profil->logo_perusahaan));
+            if ($profil->logo_perusahaan && file_exists(public_path('upload/profil/' . $profil->logo_perusahaan))) {
+                unlink(public_path('upload/profil/' . $profil->logo_perusahaan));
             }
 
             $profil->delete();

@@ -68,7 +68,7 @@
                   <label for="gambar" class="form-label">Gambar</label>
                   @if($artikel->gambar)
                     <div class="mb-2">
-                      <img src="{{ asset('storage/artikel/' . $artikel->gambar) }}" alt="Preview" class="img-thumbnail" style="max-width: 200px;" id="currentImage">
+                        <img src="{{ asset('upload/artikel/' . $artikel->gambar) }}" alt="Preview" class="img-thumbnail" style="max-width: 200px;" id="currentImage">
                     </div>
                   @endif
                   <input type="file" class="form-control @error('gambar') is-invalid @enderror" id="gambar" name="gambar">
@@ -262,7 +262,7 @@
     </style>
     <script>
       let editor;
-      let currentImageUrl = '{{ $artikel->gambar ? asset("storage/artikel/" . $artikel->gambar) : "" }}';
+      let currentImageUrl = '{{ $artikel->gambar ? asset("upload/artikel/" . $artikel->gambar) : "" }}';
       
       (function () {
         ClassicEditor.create(document.querySelector('#isi_artikel'))

@@ -40,7 +40,7 @@
                 <div class="col-md-6 mb-4">
                   <h6 class="fw-bold">Gambar</h6>
                   @if ($tentang->gambar)
-                    <img src="{{ asset('storage/tentang/' . $tentang->gambar) }}" alt="Gambar {{ $tentang->judul }}" class="img-fluid rounded" style="max-height: 300px;">
+                    <img src="{{ asset('upload/tentang/' . $tentang->gambar) }}" alt="Gambar {{ $tentang->judul }}" class="img-fluid rounded" style="max-height: 300px;">
                   @else
                     <div class="bg-light rounded p-4 text-center">
                       <i class="bx bx-image" style="font-size: 3rem;"></i>
@@ -115,7 +115,7 @@
                 <div class="col-md-6 mb-4">
                   <h6 class="fw-bold">Gambar Nilai</h6>
                   @if ($tentang->gambar_nilai)
-                    <img src="{{ asset('storage/tentang/' . $tentang->gambar_nilai) }}" alt="Gambar Nilai" class="img-fluid rounded shadow-sm" style="max-height: 300px;">
+                    <img src="{{ asset('upload/tentang/' . $tentang->gambar_nilai) }}" alt="Gambar Nilai" class="img-fluid rounded shadow-sm" style="max-height: 300px;">
                   @else
                     <div class="bg-light rounded p-4 text-center border">
                       <i class="bx bx-image text-muted" style="font-size: 3rem;"></i>

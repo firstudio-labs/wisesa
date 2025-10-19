@@ -69,7 +69,7 @@
                     <label class="form-label fw-bold">Gambar</label>
                     @if ($galeri->gambar)
                       <div class="text-center">
-                        <img src="{{ asset('storage/galeri/' . $galeri->gambar) }}" alt="Gambar {{ $galeri->keterangan }}" class="img-fluid rounded" style="max-height: 400px;">
+                        <img src="{{ asset('upload/galeri/' . $galeri->gambar) }}" alt="Gambar {{ $galeri->keterangan }}" class="img-fluid rounded" style="max-height: 400px;">
                       </div>
                     @else
                       <div class="bg-light rounded p-4 text-center">
