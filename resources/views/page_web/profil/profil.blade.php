@@ -278,7 +278,7 @@
             <div class="profile-container">
                 
                 <div class="profile-form-container">
-                    <form class="profile-form" id="profileForm" action="{{ route('profil.update') }}" method="POST" enctype="multipart/form-data">
+                    <form class="profile-form" id="profileForm" action="{{ route('profil-user.update') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
 

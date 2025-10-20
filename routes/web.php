@@ -118,5 +118,5 @@ Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery');
 Route::get('/gallery-detail', [GalleryController::class, 'detail'])->name('gallery-detail');
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 
-Route::get('/profil', [ProfilWebController::class, 'index'])->name('profil');
-Route::put('/profil/update', [ProfilWebController::class, 'update'])->name('profil.update');
+Route::get('/profil-user', [ProfilWebController::class, 'index'])->name('profil-user');
+Route::put('/profil-user/update', [ProfilWebController::class, 'update'])->name('profil-user.update');

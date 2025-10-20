@@ -97,7 +97,7 @@
                                 $srcFoto = asset('env/logo.jpg');
                             }
                         @endphp
-                        <a class="navigation__link animsition-link" href="{{ route('profil') }}" style="display: flex; align-items: center;">
+                        <a class="navigation__link animsition-link" href="{{ route('profil-user') }}" style="display: flex; align-items: center;">
                             <img src="{{ $srcFoto }}" alt="Foto Profil" style="width:32px; height:32px; border-radius:50%; object-fit:cover; margin-right:8px;">
                             <span style="vertical-align: middle;">{{ $user->name }}</span>
                         </a>
