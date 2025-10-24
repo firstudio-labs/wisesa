@@ -28,109 +28,125 @@
         <div class="row">
             <div class="col-12">
                 <div class="card">
-                    <div class="card-header d-flex justify-content-between align-items-center bg-gradient-primary">
-                        <div class="d-flex align-items-center">
-                            <div class="article-icon me-3">
-                                <i class="fas fa-newspaper fa-2x text-white"></i>
-                            </div>
-                            <div>
-                                <h5 class="card-title mb-0 text-white">Detail Artikel</h5>
-                                <small class="text-white-50">Kelola dan lihat detail artikel</small>
-                            </div>
-                        </div>
-                        <div class="btn-group">
-                            <a href="{{ route('artikel.edit', $artikel->id) }}" class="btn btn-warning btn-sm shadow-sm">
-                                <i class="fas fa-edit"></i> Edit
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">
+                            <i class="bx bx-news me-2"></i>Detail Artikel
+                        </h5>
+                        <div>
+                            <a href="{{ route('artikel.edit', $artikel->id) }}" class="btn btn-primary">
+                                <i class="bx bx-edit me-1"></i> Edit
                             </a>
-                            <a href="{{ route('artikel.index') }}" class="btn btn-light btn-sm shadow-sm">
-                                <i class="fas fa-arrow-left"></i> Kembali
+                            <a href="{{ route('artikel.index') }}" class="btn btn-light">
+                                <i class="bx bx-arrow-back me-1"></i> Kembali
                             </a>
                         </div>
                     </div>
                     <div class="card-body">
-                        <!-- Artikel Content dengan susunan seperti live preview -->
-                        <div class="article-preview">
-                            <!-- Judul dengan efek visual -->
-                            <div class="article-title-container mb-4">
-                                <h1 class="article-title">{{ $artikel->judul }}</h1>
-                                <div class="title-underline"></div>
-                            </div>
-                            
-                            <!-- Gambar dengan overlay -->
-                            @if($artikel->gambar)
-                                <div class="article-image-container mb-4">
-                                    <div class="image-wrapper">
-                                        <img src="{{ asset('upload/artikel/' . $artikel->gambar) }}" alt="{{ $artikel->judul }}" class="article-image" />
-                                        <div class="image-overlay">
-                                            <i class="fas fa-image"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endif
-                            
-                            <!-- Meta informasi dengan card design -->
-                            <div class="article-meta-container mb-4">
-                                <div class="row g-3">
-                                    <div class="col-md-3">
-                                        <div class="meta-card">
-                                            <div class="meta-icon">
-                                                <i class="fas fa-user"></i>
+                        <div class="row">
+                            <!-- Gambar Artikel -->
+                            <div class="col-lg-4 col-md-5 mb-4">
+                                <div class="text-center">
+                                    <div class="position-relative d-inline-block">
+                                        @if($artikel->gambar)
+                                            <img src="{{ asset('upload/artikel/' . $artikel->gambar) }}" 
+                                                 alt="{{ $artikel->judul }}"
+                                                 class="img-fluid rounded shadow-lg" 
+                                                 style="max-width: 100%; height: 300px; object-fit: cover; border: 3px solid #e9ecef;">
+                                        @else
+                                            <div class="bg-light rounded shadow-lg d-flex align-items-center justify-content-center" 
+                                                 style="width: 100%; height: 300px; border: 3px solid #e9ecef;">
+                                                <div class="text-center">
+                                                    <i class="bx bx-image text-muted" style="font-size: 4rem;"></i>
+                                                    <p class="text-muted mt-2 mb-0">Tidak ada gambar</p>
+                                                </div>
                                             </div>
-                                            <div class="meta-content">
-                                                <small class="meta-label">Penulis</small>
-                                                <div class="meta-value">{{ $artikel->penulis }}</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="meta-card">
-                                            <div class="meta-icon category-icon">
-                                                <i class="fas fa-tag"></i>
-                                            </div>
-                                            <div class="meta-content">
-                                                <small class="meta-label">Kategori</small>
-                                                <div class="meta-value">{{ $artikel->kategoriArtikel->kategori_artikel }}</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="meta-card">
-                                            <div class="meta-icon status-icon">
-                                                <i class="fas fa-{{ $artikel->status == 'Publik' ? 'eye' : 'eye-slash' }}"></i>
-                                            </div>
-                                            <div class="meta-content">
-                                                <small class="meta-label">Status</small>
-                                                <div class="meta-value status-{{ strtolower($artikel->status) }}">{{ $artikel->status }}</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="meta-card">
-                                            <div class="meta-icon date-icon">
-                                                <i class="fas fa-calendar"></i>
-                                            </div>
-                                            <div class="meta-content">
-                                                <small class="meta-label">Dibuat</small>
-                                                <div class="meta-value">{{ $artikel->created_at->format('d/m/Y H:i') }}</div>
-                                            </div>
+                                        @endif
+                                        <div class="position-absolute top-0 end-0 m-2">
+                                            <span class="badge bg-{{ $artikel->status == 'Publik' ? 'success' : 'warning' }}">
+                                                <i class="bx bx-{{ $artikel->status == 'Publik' ? 'check-circle' : 'eye-slash' }} me-1"></i>{{ $artikel->status }}
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             
-                            <!-- Isi artikel dengan styling yang lebih baik -->
-                            <div class="article-content-container">
-                                <div class="content-header">
-                                    <h3 class="content-title">
-                                        <i class="fas fa-align-left"></i> Konten Artikel
-                                    </h3>
-                                </div>
-                                <div class="article-content">
-                                    {!! $artikel->isi !!}
+                            <!-- Informasi Artikel -->
+                            <div class="col-lg-8 col-md-7">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <h3 class="text-primary mb-3">{{ $artikel->judul }}</h3>
+                                        
+                                        <!-- Kategori -->
+                                        <div class="mb-3">
+                                            <span class="badge bg-info fs-6 px-3 py-2">
+                                                <i class="bx bx-category me-1"></i>
+                                                {{ $artikel->kategoriArtikel->kategori_artikel ?? 'Tidak ada kategori' }}
+                                            </span>
+                                        </div>
+
+                                        <!-- Penulis -->
+                                        <div class="mb-3">
+                                            <small class="text-muted">
+                                                <i class="bx bx-user me-1"></i>Penulis: 
+                                                <strong>{{ $artikel->penulis }}</strong>
+                                            </small>
+                                        </div>
+
+                                        <!-- Slug -->
+                                        <div class="mb-3">
+                                            <small class="text-muted">
+                                                <i class="bx bx-link me-1"></i>Slug: 
+                                                <code class="bg-light px-2 py-1 rounded">{{ $artikel->slug }}</code>
+                                            </small>
+                                        </div>
+
+                                        <!-- Isi Artikel -->
+                                        <div class="mb-4">
+                                            <h6 class="text-dark mb-2">
+                                                <i class="bx bx-file-text me-2"></i>Isi Artikel
+                                            </h6>
+                                            <div class="border rounded p-3 bg-light">
+                                                {!! $artikel->isi !!}
+                                            </div>
+                                        </div>
+
+                                        <!-- Informasi Tanggal -->
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="card border-0 bg-light">
+                                                    <div class="card-body p-3">
+                                                        <h6 class="card-title text-muted mb-2">
+                                                            <i class="bx bx-calendar-plus me-2"></i>Tanggal Dibuat
+                                                        </h6>
+                                                        <p class="card-text mb-0 fw-semibold">
+                                                            {{ $artikel->created_at->format('d F Y') }}
+                                                        </p>
+                                                        <small class="text-muted">
+                                                            {{ $artikel->created_at->format('H:i') }} WIB
+                                                        </small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="card border-0 bg-light">
+                                                    <div class="card-body p-3">
+                                                        <h6 class="card-title text-muted mb-2">
+                                                            <i class="bx bx-calendar-edit me-2"></i>Terakhir Diperbarui
+                                                        </h6>
+                                                        <p class="card-text mb-0 fw-semibold">
+                                                            {{ $artikel->updated_at->format('d F Y') }}
+                                                        </p>
+                                                        <small class="text-muted">
+                                                            {{ $artikel->updated_at->format('H:i') }} WIB
+                                                        </small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
 
@@ -276,18 +292,21 @@
             position: relative;
             overflow: hidden;
             border-radius: 15px;
+            max-width: 300px;
+            margin: 0 auto;
         }
 
         .image-wrapper {
             position: relative;
             overflow: hidden;
             border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            max-height: 120px;
         }
 
         .article-image {
             width: 100%;
-            height: 400px;
+            height: 120px;
             object-fit: cover;
             transition: all 0.3s ease;
         }
@@ -586,7 +605,11 @@
             }
             
             .article-image {
-                height: 250px;
+                height: 100px;
+            }
+            
+            .article-image-container {
+                max-width: 100%;
             }
             
             .meta-card {
@@ -610,6 +633,16 @@
             .btn-group .btn {
                 margin-left: 0;
                 margin-bottom: 0.5rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .article-image {
+                height: 80px;
+            }
+            
+            .article-title {
+                font-size: 1.8rem;
             }
         }
 
