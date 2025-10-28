@@ -39,8 +39,8 @@ return [
     ],
 
     'fontee' => [
-        'token' => env('FONTEE_TOKEN', 'N9xxni6MLNVbDCdxAapE'),
-        'admin_phone' => env('FONTEE_ADMIN_PHONE', '6287875633258'),
+        'token' => env('FONTEE_TOKEN'),
+        'admin_phone' => env('FONTEE_ADMIN_PHONE'),
     ],
 
 ];

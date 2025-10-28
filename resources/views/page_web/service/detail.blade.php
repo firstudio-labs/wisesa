@@ -120,6 +120,138 @@
                     </div>
                 </section>
             @endif
+            <div class="container container--small service-detail__container">
+                <div class="service-detail__title" data-aos="fade-up">Process</div>
+                <div class="service-detail__accordion accordion accordion--black">
+                    <div class="accordion__item" data-aos="fade-up">
+                        <button class="accordion__item-header" type="button">
+                            <span class="row align-items-md-center">
+                                <span class="accordion__item-title col-11 col-md-6">
+                                    <span>01.</span> Booking
+                                </span>
+                            </span>
+                        </button>
+                        <div class="accordion__item-body">
+                            <div class="row">
+                                <div class="accordion__item-left col-12 col-md-7">
+                                    <div class="accordion__item-text"> Proses pemesanan dan pembayaran dilakukan melalui
+                                        website di halaman booking. </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion__item" data-aos="fade-up">
+                        <button class="accordion__item-header" type="button">
+                            <span class="row align-items-md-center">
+                                <span class="accordion__item-title col-11 col-md-6">
+                                    <span>02.</span> Jadwal Foto
+                                </span>
+                            </span>
+                        </button>
+                        <div class="accordion__item-body">
+                            <div class="row">
+                                <div class="accordion__item-left col-12 col-md-7">
+                                    <div class="accordion__item-text"> Jadwal foto akan ditentukan setelah pembayaran
+                                        booking selesai. Jika jadwal tidak sesuai dengan yang diinginkan, silahkan
+                                        hubungi kami untuk melakukan perubahan. </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion__item" data-aos="fade-up">
+                        <button class="accordion__item-header" type="button">
+                            <span class="row align-items-md-center">
+                                <span class="accordion__item-title col-11 col-md-6">
+                                    <span>03.</span> Upload File Foto
+                                </span>
+                            </span>
+                        </button>
+                        <div class="accordion__item-body">
+                            <div class="row">
+                                <div class="accordion__item-left col-12 col-md-7">
+                                    <div class="accordion__item-text"> Upload file foto dari customer melalui halaman
+                                        booking.
+                                        File foto akan diupload ke Google Drive dan link akan dikirimkan oleh admin ke
+                                        customer. </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion__item" data-aos="fade-up">
+                        <button class="accordion__item-header" type="button">
+                            <span class="row align-items-md-center">
+                                <span class="accordion__item-title col-11 col-md-6">
+                                    <span>04.</span> Selected Photos
+                                </span>
+                            </span>
+                        </button>
+                        <div class="accordion__item-body">
+                            <div class="row">
+                                <div class="accordion__item-left col-12 col-md-7">
+                                    <div class="accordion__item-text"> Customer memilih foto yang akan diproses oleh editor
+                                        melalui halaman booking.
+                                        Link selected photos akan dikirimkan oleh admin ke customer. </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion__item" data-aos="fade-up">
+                        <button class="accordion__item-header" type="button">
+                            <span class="row align-items-md-center">
+                                <span class="accordion__item-title col-11 col-md-6">
+                                    <span>05.</span> Upload File RAW photo
+                                </span>
+                            </span>
+                        </button>
+                        <div class="accordion__item-body">
+                            <div class="row">
+                                <div class="accordion__item-left col-12 col-md-7">
+                                    <div class="accordion__item-text"> Admin mengupload file RAW photo dari customer
+                                        melalui halaman booking. File RAW photo akan diupload ke Google Drive dan link akan
+                                        dikirimkan oleh admin ke customer. </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion__item" data-aos="fade-up">
+                        <button class="accordion__item-header" type="button">
+                            <span class="row align-items-md-center">
+                                <span class="accordion__item-title col-11 col-md-6">
+                                    <span>06.</span> Editing Foto
+                                </span>
+                            </span>
+                        </button>
+                        <div class="accordion__item-body">
+                            <div class="row">
+                                <div class="accordion__item-left col-12 col-md-7">
+                                    <div class="accordion__item-text"> Editor memproses foto yang terpilih oleh customer
+                                        melalui halaman booking. Foto akan diproses oleh editor dan link akan dikirimkan
+                                        oleh admin ke customer. </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion__item" data-aos="fade-up">
+                        <button class="accordion__item-header" type="button">
+                            <span class="row align-items-md-center">
+                                <span class="accordion__item-title col-11 col-md-6">
+                                    <span>07.</span> Foto Edited Upload
+                                </span>
+                            </span>
+                        </button>
+                        <div class="accordion__item-body">
+                            <div class="row">
+                                <div class="accordion__item-left col-12 col-md-7">
+                                    <div class="accordion__item-text"> Admin mengupload foto edited dari customer melalui
+                                        halaman booking.
+                                        Foto edited akan diupload ke Google Drive dan link akan dikirimkan oleh admin ke
+                                        customer. </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </article>
     </main>
 @endsection

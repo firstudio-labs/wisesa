@@ -14,8 +14,7 @@
             <div class="modal-body">
                 <!-- Form Content -->
                 <div id="form-content">
-                    <form id="paymentForm" action="{{ route('booking.payment.store', $booking->id) }}" method="POST"
-                        enctype="multipart/form-data">
+                    <form id="paymentForm" action="" method="POST" enctype="multipart/form-data">
                         @csrf
 
                         <!-- Payment Type Field -->
@@ -72,7 +71,12 @@
 
 <script>
     // Payment Modal Functions
-    function openPaymentModal() {
+    function openPaymentModal(bookingId) {
+        // set dynamic action URL
+        const form = document.getElementById('paymentForm');
+        if (bookingId) {
+            form.action = `/booking/${bookingId}/payment`;
+        }
         document.getElementById('paymentModal').style.display = 'flex';
         document.body.style.overflow = 'hidden';
     }

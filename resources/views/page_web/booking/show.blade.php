@@ -262,7 +262,7 @@
                                 <div class="action-buttons">
                                     @if ($booking->status == 'Diterima' && !$booking->payment)
                                         <button type="button" class="btn-action btn-payment"
-                                            onclick="openPaymentModal()">
+                                            onclick="openPaymentModal({{ $booking->id }})">
                                             <i class="fas fa-credit-card"></i> Payment
                                         </button>
                                     @endif

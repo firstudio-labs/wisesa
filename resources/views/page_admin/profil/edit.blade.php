@@ -209,7 +209,7 @@
                                 </div>
                                 <div class="card-footer">
                                     <button type="submit" class="btn btn-primary me-2">Submit</button>
-                                    <button type="reset" class="btn btn-light">Reset</button>
+                                    <button type="button" class="btn btn-light" onclick="history.back()">Batal</button>
                                 </div>
                             </form>
                         </div>

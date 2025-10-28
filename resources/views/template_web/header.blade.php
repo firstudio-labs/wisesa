@@ -6,7 +6,7 @@
         <a class="header__logo logo">
             @if ($profil && $profil->logo_perusahaan)
                 <img src="{{ asset('upload/profil/' . $profil->logo_perusahaan) }}" alt="Logo"
-                    style="height: 40px; width: auto;">
+                    style="height: 100px; width: auto;">
             @else
                 <img src="{{ asset('env/logo.png') }}" alt="Logo" style="height: 40px; width: auto;">
             @endif

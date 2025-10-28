@@ -154,6 +154,65 @@
     <script src="{{ asset('web') }}/js/libs/simpleParallax.min.js"></script>
     <!-- JavaScript-->
     <script src="{{ asset('web') }}/js/main.js"></script>
+
+
+    {{-- Whatsapp Button --}}
+    <style>
+        .whatsapp-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #25d366;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .whatsapp-button:hover {
+            background-color: #128C7E;
+            color: white;
+            transform: scale(1.1);
+        }
+    </style>
+    <script>
+        // Initialize tooltips
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+
+        // Mengatur posisi tooltip WhatsApp saat scroll
+        window.addEventListener('scroll', function() {
+            const whatsappButton = document.querySelector('.whatsapp-button');
+            const scrollPosition = window.scrollY;
+
+            if (scrollPosition > 100) {
+                whatsappButton.style.bottom = '80px';
+            } else {
+                whatsappButton.style.bottom = '20px';
+            }
+        });
+    </script>
+    @php
+        $noWa = null;
+        if (isset($profil) && $profil->no_telp_perusahaan) {
+            $noWa = preg_replace('/^0/', '+62', $profil->no_telp_perusahaan);
+        }
+    @endphp
+    @if ($noWa)
+        <a href="https://wa.me/{{ $noWa }}" class="whatsapp-button" data-bs-toggle="tooltip"
+            data-bs-placement="left" title="Hubungi Kami via WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+    @endif
 </body>
 
 </html>

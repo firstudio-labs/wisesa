@@ -9706,7 +9706,7 @@ input[type="number"] {
 /* 5.1 Header */
 .header {
     position: relative;
-    padding: 20px 0;
+    /* padding: 20px 0; */
     z-index: 2;
 }
 
@@ -10301,8 +10301,8 @@ input[type="number"] {
     top: 0;
     left: 0;
     width: 100%;
-    padding-top: 20px;
-    padding-bottom: 20px;
+    /* padding-top: 20px;
+    padding-bottom: 20px; */
     background-color: #fd969a;
     border-top: none;
     border-bottom: none;
