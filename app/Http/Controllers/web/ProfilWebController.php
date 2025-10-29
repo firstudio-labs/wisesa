@@ -24,13 +24,13 @@ class ProfilWebController extends Controller
 
         $validator = Validator::make($request->all(), [
             'foto_profile' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'name' => 'required', 
+            'name' => 'required',
             'email' => 'required|email|unique:users,email,' . $user->id,
             'username' => 'required|unique:users,username,' . $user->id,
             'no_wa' => 'required',
         ]);
 
-        if($validator->fails()) {
+        if ($validator->fails()) {
             Alert::error('Terjadi kesalahan! ' . $validator->errors()->first());
             return redirect()->back();
         }
@@ -41,17 +41,17 @@ class ProfilWebController extends Controller
         if ($request->hasFile('foto_profile')) {
             $file = $request->file('foto_profile');
             $filename = 'profile_' . Str::random(10) . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('uploads/foto_profile'), $filename);
+            $file->move(public_path('upload/foto_profile'), $filename);
 
             // Hapus foto lama jika ada dan bukan default
-            if ($user->foto_profile && file_exists(public_path('uploads/foto_profile/' . $user->foto_profile))) {
-                @unlink(public_path('uploads/foto_profile/' . $user->foto_profile));
+            if ($user->foto_profile && file_exists(public_path('upload/foto_profile/' . $user->foto_profile))) {
+                @unlink(public_path('upload/foto_profile/' . $user->foto_profile));
             }
 
             $data['foto_profile'] = $filename;
         }
 
-        if($request->filled('password')) {
+        if ($request->filled('password')) {
             $data['password'] = Hash::make($request->password);
         }
 

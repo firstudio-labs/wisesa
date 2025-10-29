@@ -25,8 +25,17 @@ class BookingObserver
 
     private function sendStatusNotification(Booking $booking): void
     {
+        $catatanText = '';
+        if (is_array($booking->catatan) && count($booking->catatan) > 0) {
+            $catatanArray = $booking->catatan;
+            $lastCatatan = end($catatanArray);
+            $catatanText = $lastCatatan['isi'] ?? '';
+        } elseif (is_string($booking->catatan)) {
+            $catatanText = $booking->catatan;
+        }
+
         $statusMessages = [
-            'Ditolak' => "Maaf, booking Anda telah ditolak.\nCatatan: {$booking->catatan}",
+            'Ditolak' => "Maaf, booking Anda telah ditolak." . ($catatanText ? "\nCatatan: {$catatanText}" : ''),
             'Diterima' => "Booking Anda telah diterima! Silakan lakukan pembayaran.\nFotografer: {$booking->fotografer}\nBiaya: Rp {$booking->biaya}",
             'Diproses' => "Booking Anda sedang diproses. Anda dapat melihat progress di halaman booking.",
             'Selesai' => "Booking Anda telah selesai. Terima kasih!",

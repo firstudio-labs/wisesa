@@ -29,7 +29,9 @@ class BookingController extends Controller
             ->latest()
             ->paginate(10);
 
-        return view('page_web.booking.index', compact('bookings'));
+        $layanans = Layanan::all();
+
+        return view('page_web.booking.index', compact('bookings', 'layanans'));
     }
 
     /**
@@ -60,6 +62,17 @@ class BookingController extends Controller
      */
     public function store(StoreBookingRequest $request)
     {
+        // Prepare catatan as JSON array if provided
+        $catatanData = null;
+        if ($request->filled('catatan')) {
+            $catatanData = [[
+                'tanggal' => now()->format('d/m/Y'),
+                'waktu' => now()->format('H:i'),
+                'status' => 'Pending',
+                'isi' => $request->catatan
+            ]];
+        }
+
         $booking = Booking::create([
             'user_id' => auth()->id(),
             'nama' => $request->nama,
@@ -74,7 +87,7 @@ class BookingController extends Controller
             'booking_end_time' => $request->booking_end_time,
             'universitas' => $request->universitas,
             'lokasi_photo' => $request->lokasi_photo,
-            'catatan' => $request->catatan,
+            'catatan' => $catatanData,
             'status' => 'Pending',
         ]);
 
@@ -109,7 +122,28 @@ class BookingController extends Controller
      */
     public function update(UpdateBookingAdminRequest $request, $id)
     {
-        $booking = Booking::findOrFail($id);
+        $booking = Booking::with('layanan')->findOrFail($id);
+        $oldStatus = $booking->status;
+
+        // Prepare catatan data if provided
+        $updateData = [];
+        if ($request->filled('catatan_baru')) {
+            $catatanData = $booking->catatan;
+
+            if (!is_array($catatanData)) {
+                $catatanData = [];
+            }
+
+            $catatanBaru = [
+                'tanggal' => now()->format('d/m/Y'),
+                'waktu' => now()->format('H:i'),
+                'status' => $request->status,
+                'isi' => $request->catatan_baru
+            ];
+
+            $catatanData[] = $catatanBaru;
+            $updateData['catatan'] = $catatanData;
+        }
 
         $booking->update($request->only([
             'nama',
@@ -127,7 +161,24 @@ class BookingController extends Controller
             'lokasi_photo',
             'universitas',
             'status'
-        ]));
+        ]) + $updateData);
+
+        // Kirim notifikasi WhatsApp jika status berubah
+        $newStatus = $request->status;
+        if ($oldStatus !== $newStatus) {
+            try {
+                $fonteeService = new FonteeWhatsAppService();
+                // Reload booking dengan data terbaru dan relasi yang diperlukan
+                $booking->refresh();
+                $booking->load(['layanan', 'subLayanan']);
+
+                $catatanText = $request->filled('catatan_baru') ? $request->catatan_baru : null;
+                $message = $fonteeService->formatStatusMessage($newStatus, $catatanText, $booking);
+                $fonteeService->sendMessage($booking->telephone, $message);
+            } catch (\Exception $e) {
+                logger()->error('Failed to send WhatsApp notification on update: ' . $e->getMessage());
+            }
+        }
 
         return redirect()->route('admin.booking.show', $id)
             ->with('success', 'Booking berhasil diupdate!');
@@ -293,9 +344,23 @@ class BookingController extends Controller
             ], 400);
         }
 
+        // Prepare catatan data
+        $catatanData = $booking->catatan;
+        if (!is_array($catatanData)) {
+            $catatanData = [];
+        }
+
+        // Add cancellation note
+        $catatanData[] = [
+            'tanggal' => now()->format('d/m/Y'),
+            'waktu' => now()->format('H:i'),
+            'status' => 'Dibatalkan',
+            'isi' => 'Dibatalkan oleh user'
+        ];
+
         $booking->update([
             'status' => Booking::STATUS_DIBATALKAN,
-            'catatan' => $booking->catatan . "\n[Dibatalkan oleh user pada " . now()->format('d/m/Y H:i') . "]"
+            'catatan' => $catatanData
         ]);
 
         return response()->json([

@@ -20,22 +20,22 @@ class LoginController extends Controller
             'username' => 'required',
             'password' => 'required',
         ]);
-    
+
         $username = $request->username;
         $password = $request->password;
-        
+
         // Coba login dengan username atau email
         $credentials = [
             'password' => $password
         ];
-        
+
         // Jika input mengandung @, anggap sebagai email
         if (strpos($username, '@') !== false) {
             $credentials['email'] = $username;
         } else {
             $credentials['username'] = $username;
         }
-    
+
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
             if ($user->role == 'superadmin') {
@@ -50,7 +50,7 @@ class LoginController extends Controller
                 return redirect('/login');
             }
         }
-    
+
         Alert::error('Login Failed', 'The provided credentials do not match our records.');
         return back();
     }
@@ -60,6 +60,6 @@ class LoginController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('/login');
+        return redirect('/');
     }
 }

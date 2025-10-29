@@ -81,16 +81,6 @@
                                         </svg>
                                     </button>
                                 </div>
-                                <div class="col-12 col-md-3 text-md-right ml-auto" data-aos="fade-up">
-                                    <a class="carousel-section__more arrow-link" href="{{ route('services') }}">
-                                        <span class="arrow-link__text">Lihat Semua</span>
-                                        <span class="arrow-link__icon">
-                                            <svg width="75" height="75">
-                                                <use xlink:href="#link-arrow"></use>
-                                            </svg>
-                                        </span>
-                                    </a>
-                                </div>
                             </header>
                             <div class="carousel-section__carousel carousel carousel--slide-auto swiper-container __js_carousel-layanan"
                                 data-aos="fade-up">

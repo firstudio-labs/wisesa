@@ -241,36 +241,88 @@
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
                                         </div>
+
+                                        <div class="mb-3">
+                                            <label class="form-label">Tambah Catatan (Opsional)</label>
+                                            <textarea name="catatan_baru" rows="3" class="form-control @error('catatan_baru') is-invalid @enderror"
+                                                placeholder="Masukkan catatan baru..."></textarea>
+                                            @error('catatan_baru')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                            <small class="form-text text-muted">
+                                                <i class="fas fa-info-circle me-1"></i>Catatan akan otomatis terhubung
+                                                dengan
+                                                status yang dipilih
+                                            </small>
+                                        </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="mb-3">
                                             <label class="form-label">Riwayat Catatan</label>
                                             <div class="card bg-light border">
-                                                <div class="card-body p-3" style="max-height: 150px; overflow-y: auto;">
+                                                <div class="card-header bg-transparent border-0 py-2">
+                                                    <h6 class="mb-0">
+                                                        <i class="fas fa-history text-primary me-2"></i>
+                                                        <strong>Riwayat Catatan</strong>
+                                                    </h6>
+                                                </div>
+                                                <div class="card-body py-2" style="max-height: 250px; overflow-y: auto;">
                                                     @if (is_array($booking->catatan) && count($booking->catatan) > 0)
                                                         @foreach (array_reverse($booking->catatan) as $index => $item)
-                                                            <div class="border-start border-primary border-3 ps-2 mb-2">
-                                                                <small class="text-muted d-block">
-                                                                    <i
-                                                                        class="fas fa-calendar me-1"></i>{{ $item['tanggal'] ?? '' }}
-                                                                    <i
-                                                                        class="fas fa-clock ms-2 me-1"></i>{{ $item['waktu'] ?? '' }}
-                                                                    <span
-                                                                        class="badge bg-info ms-2">{{ $item['status'] ?? '' }}</span>
-                                                                </small>
-                                                                <p class="mb-0 small">{{ $item['isi'] ?? '' }}</p>
+                                                            <div class="border-start border-3 ps-3 mb-3 pb-2"
+                                                                style="background-color: #f8f9fa;
+                                                                border-color:
+                                                                @if ($item['status'] == 'Pending') #ffc107
+                                                                @elseif($item['status'] == 'Ditolak') #dc3545
+                                                                @elseif($item['status'] == 'Diterima') #0dcaf0
+                                                                @elseif($item['status'] == 'Diproses') #0d6efd
+                                                                @elseif($item['status'] == 'Selesai') #198754
+                                                                @else #6c757d @endif;">
+                                                                <div
+                                                                    class="d-flex justify-content-between align-items-start mb-1">
+                                                                    <div>
+                                                                        <span
+                                                                            class="badge
+                                                                            @if ($item['status'] == 'Pending') bg-warning
+                                                                            @elseif($item['status'] == 'Ditolak') bg-danger
+                                                                            @elseif($item['status'] == 'Diterima') bg-info
+                                                                            @elseif($item['status'] == 'Diproses') bg-primary
+                                                                            @elseif($item['status'] == 'Selesai') bg-success
+                                                                            @else bg-secondary @endif
+                                                                            text-white me-2">
+                                                                            {{ $item['status'] ?? '' }}
+                                                                        </span>
+                                                                        <small class="text-muted">
+                                                                            <i
+                                                                                class="fas fa-calendar me-1"></i>{{ $item['tanggal'] ?? '' }}
+                                                                            <i
+                                                                                class="fas fa-clock ms-2 me-1"></i>{{ $item['waktu'] ?? '' }}
+                                                                        </small>
+                                                                    </div>
+                                                                </div>
+                                                                <p class="mb-0 mt-2"
+                                                                    style="line-height: 1.6; white-space: pre-wrap; font-size: 0.9rem;">
+                                                                    {{ $item['isi'] ?? '' }}</p>
                                                             </div>
                                                         @endforeach
                                                     @elseif (is_string($booking->catatan) && $booking->catatan)
-                                                        <p class="mb-0 small">{{ $booking->catatan }}</p>
+                                                        <div class="alert alert-info alert-sm mb-2" role="alert">
+                                                            <strong><i class="fas fa-sticky-note me-2"></i>Catatan
+                                                                Lama:</strong>
+                                                            <p class="mb-0 mt-1" style="white-space: pre-wrap;">
+                                                                {{ $booking->catatan }}</p>
+                                                        </div>
                                                     @else
-                                                        <p class="text-muted mb-0"><em>Belum ada catatan</em></p>
+                                                        <p class="text-muted mb-0 text-center py-3"><em><i
+                                                                    class="fas fa-inbox me-2"></i>Belum ada
+                                                                catatan</em></p>
                                                     @endif
                                                 </div>
                                             </div>
                                             <small class="form-text text-muted">
-                                                <i class="fas fa-info-circle me-1"></i>Catatan dikelola melalui tombol
-                                                "Update Status" di halaman detail
+                                                <i class="fas fa-info-circle me-1"></i>Riwayat catatan akan bertambah
+                                                setiap
+                                                kali Anda menambahkan catatan baru
                                             </small>
                                         </div>
                                     </div>

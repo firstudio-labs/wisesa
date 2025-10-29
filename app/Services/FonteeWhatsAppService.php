@@ -181,7 +181,26 @@ class FonteeWhatsAppService
         $message .= "📋 Booking ID: #" . str_pad($booking->id, 4, '0', STR_PAD_LEFT) . "\n";
         $message .= "👤 Nama: " . $booking->nama . "\n";
         $message .= "📦 Paket: " . ($booking->layanan->judul ?? '-') . "\n";
-        $message .= "📅 Tanggal: " . $bookingDate->format('d F Y') . "\n\n";
+        $message .= "📅 Tanggal: " . $bookingDate->format('d F Y') . "\n";
+
+        if (!empty($booking->booking_time)) {
+            $message .= "🕐 Waktu: " . $booking->booking_time;
+            if (!empty($booking->booking_end_time)) {
+                $message .= " - " . $booking->booking_end_time;
+            }
+            $message .= "\n";
+        }
+
+        if (!empty($booking->fotografer)) {
+            $message .= "📸 Fotografer: " . $booking->fotografer . "\n";
+        }
+
+        if (!empty($booking->biaya)) {
+            $biaya = number_format($booking->biaya, 0, ',', '.');
+            $message .= "💰 Biaya: Rp " . $biaya . "\n";
+        }
+
+        $message .= "\n";
 
         // Status badge
         $statusLabels = [

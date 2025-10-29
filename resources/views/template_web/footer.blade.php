@@ -69,7 +69,7 @@
                 <div class="footer__title">Sign up to book us</div>
                 <form class="footer__feedback-form" action="#" method="post">
                     <label class="footer__feedback-field field">
-                        <a class="footer__menu-link" href="#">BOOK NOW</a>
+                        <a class="footer__menu-link" href="booking">BOOK NOW</a>
                     </label>
                     <button class="footer__feedback-send arrow-btn arrow-btn--size-large" type="button">
                         <svg width="75" height="75">

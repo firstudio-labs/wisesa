@@ -37,7 +37,7 @@ class UpdateBookingAdminRequest extends FormRequest
             'lokasi_photo' => 'nullable|string|max:255',
             'universitas' => 'nullable|string|max:255',
             'status' => 'required|in:Pending,Ditolak,Diterima,Diproses,Selesai',
-            // 'catatan' tidak disertakan karena dikelola via updateStatus method
+            'catatan_baru' => 'nullable|string|max:1000',
         ];
     }
 

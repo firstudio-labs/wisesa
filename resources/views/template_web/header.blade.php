@@ -91,7 +91,7 @@
                                 if (Str::startsWith($fotoProfile, ['http://', 'https://'])) {
                                     $srcFoto = $fotoProfile;
                                 } else {
-                                    $srcFoto = asset('uploads/foto_profile/' . $fotoProfile);
+                                    $srcFoto = asset('upload/foto_profile/' . $fotoProfile);
                                 }
                             } else {
                                 $srcFoto = asset('env/logo.jpg');
