@@ -132,7 +132,8 @@
                                         <strong>Fotografer:</strong> {{ $booking->fotografer ?? '-' }}
                                     </div>
                                     <div class="mb-2">
-                                        <strong>Detail Paket:</strong> {{ $booking->layanan->deskripsi ?? '-' }}
+                                        <strong>Detail Paket:</strong>
+                                        {{ $booking->layanan && $booking->layanan->deskripsi ? strip_tags($booking->layanan->deskripsi) : '-' }}
                                     </div>
                                 </div>
                             </div>

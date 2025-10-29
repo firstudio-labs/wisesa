@@ -378,7 +378,7 @@
                     <span>{{ $beranda->judul_sekunder }}</span>{{ $beranda->keterangan }}
                 </h1>
                 <a class="main-screen__btn btn" href="">
-                    <span class="btn__text">CTA</span>
+                    <span class="btn__text">BOOK NOW</span>
                     <span class="btn__icon">
                         <svg width="19" height="19">
                             <use xlink:href="#link-arrow"></use>

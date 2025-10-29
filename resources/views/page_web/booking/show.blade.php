@@ -110,7 +110,7 @@
                                 <div class="info-row">
                                     <div class="info-label">Detail Paket</div>
                                     <div class="info-value">
-                                        {{ $booking->layanan->deskripsi ?? 'Paket foto ' . strtolower($booking->layanan->judul ?? '') . ' sederhana dengan 2 fotografer dst..' }}
+                                        {{ $booking->layanan && $booking->layanan->deskripsi ? strip_tags($booking->layanan->deskripsi) : 'Paket foto ' . strtolower($booking->layanan->judul ?? '') . ' sederhana dengan 2 fotografer dst..' }}
                                     </div>
                                 </div>
                             </div>
